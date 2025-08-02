@@ -4,219 +4,201 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus - AI-Powered Project Intelligence</title>
-    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=SF+Pro+Text:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            /* Premium Color Palette */
-            --primary-dark: #1d1d1f;
-            --secondary-dark: #2c2c2e;
-            --accent-blue: #007aff;
-            --accent-blue-hover: #0056b3;
-            --success-green: #34c759;
-            --warning-orange: #ff9500;
-            --error-red: #ff3b30;
-            
-            /* Premium Grays */
-            --gray-50: #fafafa;
-            --gray-100: #f5f5f7;
-            --gray-200: #e5e5e7;
-            --gray-300: #d1d1d6;
-            --gray-400: #a1a1a6;
-            --gray-500: #8e8e93;
-            --gray-600: #636366;
-            --gray-700: #48484a;
-            --gray-800: #2c2c2e;
-            --gray-900: #1d1d1f;
-            
-            /* Typography */
-            --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            --font-text: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            
-            /* Spacing */
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 1rem;
-            --spacing-md: 1.5rem;
-            --spacing-lg: 2rem;
-            --spacing-xl: 3rem;
-            --spacing-2xl: 4rem;
-            
-            /* Shadows */
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
-            
-            /* Border Radius */
-            --radius-sm: 6px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            /* Premium Dark Theme */
+            --primary-blue: #2563eb;
+            --secondary-blue: #1e40af;
+            --accent-purple: #7c3aed;
+            --accent-orange: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+            --success-green: #10b981;
+            --border-color: rgba(148, 163, 184, 0.2);
+            --glass-bg: rgba(30, 41, 59, 0.8);
+            --premium-gold: #fbbf24;
+            --premium-silver: #e5e7eb;
+        }
+
         body {
-            font-family: var(--font-text);
-            background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
-            color: var(--gray-900);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            color: var(--text-light);
+            min-height: 100vh;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
         /* Premium Navigation */
         .navbar {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--gray-200);
-            padding: var(--spacing-sm) 0;
-            position: fixed;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
+            z-index: 100;
             transition: all 0.3s ease;
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 var(--spacing-lg);
         }
 
         .logo {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: flex;
             align-items: center;
-            gap: var(--spacing-xs);
+            gap: 0.5rem;
+            text-decoration: none;
         }
 
         .logo i {
-            color: var(--accent-blue);
-            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-actions {
             display: flex;
+            gap: 1rem;
             align-items: center;
-            gap: var(--spacing-sm);
         }
 
         .btn {
-            font-family: var(--font-text);
-            font-weight: 500;
-            padding: var(--spacing-xs) var(--spacing-md);
-            border-radius: var(--radius-lg);
+            padding: 0.6rem 1.5rem;
             border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            border-radius: 8px;
+            font-weight: 600;
             text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
             display: inline-flex;
             align-items: center;
-            gap: var(--spacing-xs);
+            gap: 0.5rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
         .btn-primary {
-            background: var(--accent-blue);
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
             color: white;
-            box-shadow: var(--shadow-sm);
+            border: none;
         }
 
         .btn-primary:hover {
-            background: var(--accent-blue-hover);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--gray-700);
-            border: 1px solid var(--gray-300);
-        }
-
-        .btn-secondary:hover {
-            background: var(--gray-100);
-            border-color: var(--gray-400);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
         }
 
         /* Hero Section */
         .hero {
-            margin-top: 80px;
-            padding: var(--spacing-2xl) 0;
             text-align: center;
-            background: linear-gradient(135deg, var(--gray-50) 0%, white 50%, var(--gray-100) 100%);
-        }
-
-        .hero-container {
-            max-width: 800px;
+            padding: 6rem 2rem 4rem;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 var(--spacing-lg);
         }
 
-        .hero-title {
-            font-family: var(--font-display);
+        .hero h1 {
             font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: var(--spacing-md);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-light), var(--text-gray));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1.1;
         }
 
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--gray-600);
-            margin-bottom: var(--spacing-xl);
-            line-height: 1.4;
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Project Generator */
-        .generator-section {
-            background: white;
-            border-radius: var(--radius-xl);
-            padding: var(--spacing-xl);
-            margin: var(--spacing-xl) 0;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--gray-200);
+        .generator-container {
+            max-width: 800px;
+            margin: 0 auto 6rem;
+            padding: 0 2rem;
+        }
+
+        .generator-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .generator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
 
         .form-group {
-            margin-bottom: var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .form-label {
-            display: block;
-            font-weight: 500;
-            color: var(--gray-900);
-            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 1.1rem;
         }
 
         .form-input {
-            width: 100%;
-            padding: var(--spacing-md);
-            border: 1px solid var(--gray-300);
-            border-radius: var(--radius-lg);
-            font-family: var(--font-text);
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.5);
+            color: var(--text-light);
             font-size: 1rem;
-            transition: all 0.2s ease;
-            background: var(--gray-50);
+            transition: all 0.3s ease;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--accent-blue);
-            background: white;
-            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .form-textarea {
@@ -224,29 +206,30 @@
             resize: vertical;
         }
 
-        /* Loading State */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: var(--spacing-xl);
+        .generate-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            padding: 1.2rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--gray-200);
-            border-top: 3px solid var(--accent-blue);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto var(--spacing-md);
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        /* Authentication Modal */
+        /* Premium Authentication Modal */
         .modal {
             display: none;
             position: fixed;
@@ -254,8 +237,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
             z-index: 2000;
             animation: fadeIn 0.3s ease;
         }
@@ -265,129 +248,268 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
-            border-radius: var(--radius-xl);
-            padding: var(--spacing-xl);
-            max-width: 400px;
+            background: linear-gradient(145deg, var(--card-bg), rgba(30, 41, 59, 0.95));
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 480px;
             width: 90%;
-            box-shadow: var(--shadow-xl);
-            animation: slideIn 0.3s ease;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            box-shadow: 
+                0 32px 64px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .modal-header {
             text-align: center;
-            margin-bottom: var(--spacing-lg);
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .modal-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
         }
 
         .modal-title {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: var(--spacing-xs);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: var(--text-gray);
+            font-size: 1rem;
         }
 
         .modal-close {
             position: absolute;
-            top: var(--spacing-md);
-            right: var(--spacing-md);
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--gray-500);
+            top: -1rem;
+            right: -1rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
             cursor: pointer;
-            padding: var(--spacing-xs);
-            border-radius: var(--radius-sm);
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .modal-close:hover {
-            background: var(--gray-100);
-            color: var(--gray-700);
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .auth-form .form-group {
+            margin-bottom: 0;
+        }
+
+        .auth-form .form-label {
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-form .form-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: var(--text-light);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .auth-form .form-input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .auth-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.3);
         }
 
         .auth-toggle {
             text-align: center;
-            margin-top: var(--spacing-md);
-            padding-top: var(--spacing-md);
-            border-top: 1px solid var(--gray-200);
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
         }
 
         .auth-toggle a {
-            color: var(--accent-blue);
+            color: var(--primary-blue);
             text-decoration: none;
             font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .auth-toggle a:hover {
+            color: var(--accent-purple);
             text-decoration: underline;
+        }
+
+        /* Loading State */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(37, 99, 235, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Features Grid */
         .features {
+            max-width: 1200px;
+            margin: 0 auto 6rem;
+            padding: 0 2rem;
+        }
+
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-lg);
-            margin: var(--spacing-2xl) 0;
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .feature-card {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: var(--spacing-lg);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray-200);
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
 
         .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent-blue), #0056b3);
-            border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: var(--spacing-md);
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
         }
 
         .feature-title {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: var(--spacing-xs);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
         }
 
         .feature-description {
-            color: var(--gray-600);
-            line-height: 1.5;
+            color: var(--text-gray);
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success-green);
+            color: #34d399;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+            color: #fca5a5;
+        }
+
+        /* User Menu */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-name {
+            color: var(--text-light);
+            font-weight: 500;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero-title {
+            .hero h1 {
                 font-size: 2.5rem;
             }
 
-            .hero-subtitle {
+            .hero .subtitle {
                 font-size: 1.1rem;
             }
 
-            .nav-container {
-                padding: 0 var(--spacing-sm);
+            .generator-card {
+                padding: 2rem;
             }
 
-            .generator-section {
-                margin: var(--spacing-lg) var(--spacing-sm);
-                padding: var(--spacing-lg);
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .modal-content {
+                padding: 2rem;
+                margin: 1rem;
             }
         }
 
@@ -397,27 +519,45 @@
         }
 
         @keyframes slideIn {
-            from { transform: translate(-50%, -60%); opacity: 0; }
-            to { transform: translate(-50%, -50%); opacity: 1; }
+            from { 
+                transform: translate(-50%, -60%); 
+                opacity: 0;
+                scale: 0.9;
+            }
+            to { 
+                transform: translate(-50%, -50%); 
+                opacity: 1;
+                scale: 1;
+            }
         }
 
-        .alert {
-            padding: var(--spacing-md);
-            border-radius: var(--radius-md);
-            margin-bottom: var(--spacing-md);
-            border: 1px solid;
+        /* Premium Glassmorphism Effects */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .alert-success {
-            background: rgba(52, 199, 89, 0.1);
-            border-color: var(--success-green);
-            color: #1b5e20;
+        /* Luxury Gradient Overlays */
+        .premium-gradient {
+            position: relative;
+            overflow: hidden;
         }
 
-        .alert-error {
-            background: rgba(255, 59, 48, 0.1);
-            border-color: var(--error-red);
-            color: #c62828;
+        .premium-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .premium-gradient:hover::before {
+            opacity: 1;
         }
     </style>
 </head>
@@ -426,25 +566,21 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="logo">
-                <i class="fas fa-brain"></i>
-                Nexus
+                <i class="fas fa-brain"></i> Nexus
             </a>
             <div class="nav-actions">
                 <div id="authButtons">
-                    <button class="btn btn-secondary" onclick="openModal('login')">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Sign In
+                    <button class="btn btn-outline" onclick="openModal('login')">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
                     </button>
                     <button class="btn btn-primary" onclick="openModal('register')">
-                        <i class="fas fa-user-plus"></i>
-                        Get Started
+                        <i class="fas fa-user-plus"></i> Get Started
                     </button>
                 </div>
-                <div id="userMenu" style="display: none;">
+                <div id="userMenu" class="user-menu" style="display: none;">
                     <span id="userName" class="user-name"></span>
-                    <button class="btn btn-secondary" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Sign Out
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Sign Out
                     </button>
                 </div>
             </div>
@@ -453,176 +589,194 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-container">
-            <h1 class="hero-title">Transform Ideas into Strategic Plans</h1>
-            <p class="hero-subtitle">
-                AI-powered project intelligence that turns your app ideas into comprehensive roadmaps, 
-                market analysis, and personalized learning paths.
-            </p>
-        </div>
+        <h1>Transform Your Idea Into Reality</h1>
+        <p class="subtitle">
+            Get a comprehensive roadmap, competitive analysis, and learning resources 
+            to turn your app idea into a successful digital product.
+        </p>
     </section>
 
-    <!-- Main Container -->
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-lg);">
-        
-        <!-- Project Generator -->
-        <div class="generator-section">
-            <div style="text-align: center; margin-bottom: var(--spacing-xl);">
-                <h2 style="font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--gray-900); margin-bottom: var(--spacing-xs);">
+    <!-- Project Generator -->
+    <section class="generator-container">
+        <div class="generator-card premium-gradient">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-light);">
                     Generate Your Project Roadmap
                 </h2>
-                <p style="color: var(--gray-600);">
+                <p style="color: var(--text-gray);">
                     Describe your app idea and get a comprehensive strategic plan in seconds
                 </p>
             </div>
 
-            <form id="projectForm" onsubmit="generateProject(event)">
+            <form class="generator-form" id="projectForm" onsubmit="generateProject(event)">
                 <div class="form-group">
                     <label class="form-label" for="projectIdea">
                         <i class="fas fa-lightbulb"></i> Describe Your Project Idea
                     </label>
                     <textarea 
+                        class="form-input form-textarea" 
                         id="projectIdea" 
                         name="project_idea" 
-                        class="form-input form-textarea" 
                         placeholder="e.g., A food delivery app for college students with real-time tracking and group ordering features..."
                         required
                     ></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: var(--spacing-md); font-size: 1.1rem;">
-                    <i class="fas fa-rocket"></i>
-                    Generate Strategic Plan
+                <button type="submit" class="generate-btn">
+                    <i class="fas fa-rocket"></i> Generate Strategic Plan
                 </button>
             </form>
 
             <!-- Loading State -->
-            <div id="loadingState" class="loading">
-                <div class="loading-spinner"></div>
-                <h3 style="color: var(--gray-700); margin-bottom: var(--spacing-xs);">Analyzing Your Project</h3>
-                <p style="color: var(--gray-500);">Our AI is creating your comprehensive roadmap...</p>
+            <div class="loading" id="loadingState">
+                <div class="spinner"></div>
+                <p style="margin-top: 1rem; color: var(--text-gray);">
+                    Generating your comprehensive project roadmap...<br>
+                    <small>This may take 30-60 seconds</small>
+                </p>
             </div>
         </div>
+    </section>
 
-        <!-- Features -->
-        <div class="features">
-            <div class="feature-card">
+    <!-- Features Section -->
+    <section class="features">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">
+                What You'll Get
+            </h2>
+            <p style="font-size: 1.2rem; color: var(--text-gray); max-width: 600px; margin: 0 auto;">
+                Every Nexus report includes everything you need to go from idea to successful product
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card premium-gradient">
                 <div class="feature-icon">
                     <i class="fas fa-route"></i>
                 </div>
-                <h3 class="feature-title">Visual Roadmap</h3>
+                <h3 class="feature-title">Visual Project Roadmap</h3>
                 <p class="feature-description">
-                    Get a clear, timeline-based project roadmap with phases, milestones, and deliverables.
+                    Get a clear, phase-by-phase timeline showing exactly what to build and when, 
+                    from MVP to full launch.
                 </p>
             </div>
 
-            <div class="feature-card">
+            <div class="feature-card premium-gradient">
                 <div class="feature-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
-                <h3 class="feature-title">Market Intelligence</h3>
+                <h3 class="feature-title">Market Opportunity Analysis</h3>
                 <p class="feature-description">
-                    Deep market analysis, competitive landscape, and opportunity assessment for your idea.
+                    Discover why your project is needed with real user pain points and market gap analysis.
                 </p>
             </div>
 
-            <div class="feature-card">
+            <div class="feature-card premium-gradient">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Competitive Landscape</h3>
+                <p class="feature-description">
+                    Understand your competition, their strengths and weaknesses, and your unique advantages.
+                </p>
+            </div>
+
+            <div class="feature-card premium-gradient">
                 <div class="feature-icon">
                     <i class="fas fa-cogs"></i>
                 </div>
-                <h3 class="feature-title">Tech Stack</h3>
+                <h3 class="feature-title">Technology Stack Recommendations</h3>
                 <p class="feature-description">
-                    Modern technology recommendations with clear justifications and implementation guidance.
+                    Get expert-recommended technologies with detailed reasoning for your specific project needs.
                 </p>
             </div>
 
-            <div class="feature-card">
+            <div class="feature-card premium-gradient">
+                <div class="feature-icon">
+                    <i class="fas fa-puzzle-piece"></i>
+                </div>
+                <h3 class="feature-title">MVP Feature Blueprint</h3>
+                <p class="feature-description">
+                    Prioritized list of core features to build first, designed to solve your users' main problems.
+                </p>
+            </div>
+
+            <div class="feature-card premium-gradient">
                 <div class="feature-icon">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <h3 class="feature-title">Learning Path</h3>
+                <h3 class="feature-title">Curated Learning Hub</h3>
                 <p class="feature-description">
-                    Curated learning resources and skills development plan tailored to your project.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-comments"></i>
-                </div>
-                <h3 class="feature-title">Interactive Refinement</h3>
-                <p class="feature-description">
-                    Chat with AI to continuously refine and improve your project roadmap.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3 class="feature-title">Secure & Private</h3>
-                <p class="feature-description">
-                    Your projects are securely stored with enterprise-grade authentication and privacy.
+                    Personalized curriculum with the best learning resources for every technology in your stack.
                 </p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Authentication Modal -->
+    <!-- Premium Authentication Modal -->
     <div id="authModal" class="modal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
             
             <div class="modal-header">
-                <h2 id="modalTitle" class="modal-title">Sign In</h2>
-                <p id="modalSubtitle" style="color: var(--gray-600);">Welcome back to Nexus</p>
+                <div class="modal-logo">
+                    <i class="fas fa-brain"></i> Nexus
+                </div>
+                <h2 id="modalTitle" class="modal-title">Welcome Back</h2>
+                <p id="modalSubtitle" class="modal-subtitle">Sign in to continue your journey</p>
             </div>
 
             <div id="alertContainer"></div>
 
             <!-- Login Form -->
-            <form id="loginForm" onsubmit="handleAuth(event, 'login')">
+            <form id="loginForm" class="auth-form" onsubmit="handleAuth(event, 'login')">
                 <div class="form-group">
-                    <label class="form-label" for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" name="email" class="form-input" required>
+                    <label class="form-label" for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" name="email" class="form-input" required 
+                           placeholder="Enter your email">
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" name="password" class="form-input" required>
+                    <input type="password" id="loginPassword" name="password" class="form-input" required 
+                           placeholder="Enter your password">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Sign In
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-sign-in-alt"></i> Sign In to Nexus
                 </button>
             </form>
 
             <!-- Register Form -->
-            <form id="registerForm" style="display: none;" onsubmit="handleAuth(event, 'register')">
+            <form id="registerForm" class="auth-form" style="display: none;" onsubmit="handleAuth(event, 'register')">
                 <div class="form-group">
                     <label class="form-label" for="registerName">Full Name</label>
-                    <input type="text" id="registerName" name="name" class="form-input" required>
+                    <input type="text" id="registerName" name="name" class="form-input" required 
+                           placeholder="Enter your full name">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="registerEmail">Email</label>
-                    <input type="email" id="registerEmail" name="email" class="form-input" required>
+                    <label class="form-label" for="registerEmail">Email Address</label>
+                    <input type="email" id="registerEmail" name="email" class="form-input" required 
+                           placeholder="Enter your email">
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="registerPassword">Password</label>
-                    <input type="password" id="registerPassword" name="password" class="form-input" required minlength="6">
+                    <input type="password" id="registerPassword" name="password" class="form-input" required minlength="6"
+                           placeholder="Create a strong password">
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="registerConfirmPassword">Confirm Password</label>
-                    <input type="password" id="registerConfirmPassword" name="confirmPassword" class="form-input" required>
+                    <input type="password" id="registerConfirmPassword" name="confirmPassword" class="form-input" required
+                           placeholder="Confirm your password">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    <i class="fas fa-user-plus"></i>
-                    Create Account
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-rocket"></i> Join Nexus Today
                 </button>
             </form>
 
             <div class="auth-toggle">
                 <p id="authToggleText">
-                    Don't have an account? <a href="#" onclick="toggleAuthMode()">Sign up</a>
+                    Don't have an account? <a href="#" onclick="toggleAuthMode()">Create one now</a>
                 </p>
             </div>
         </div>
@@ -652,14 +806,14 @@
             clearAlerts();
 
             if (mode === 'login') {
-                modalTitle.textContent = 'Sign In';
-                modalSubtitle.textContent = 'Welcome back to Nexus';
+                modalTitle.textContent = 'Welcome Back';
+                modalSubtitle.textContent = 'Sign in to continue your journey';
                 loginForm.style.display = 'block';
                 registerForm.style.display = 'none';
-                authToggleText.innerHTML = `Don't have an account? <a href="#" onclick="toggleAuthMode()">Sign up</a>`;
+                authToggleText.innerHTML = `Don't have an account? <a href="#" onclick="toggleAuthMode()">Create one now</a>`;
             } else {
-                modalTitle.textContent = 'Create Account';
-                modalSubtitle.textContent = 'Join thousands of creators';
+                modalTitle.textContent = 'Join Nexus';
+                modalSubtitle.textContent = 'Start transforming your ideas today';
                 loginForm.style.display = 'none';
                 registerForm.style.display = 'block';
                 authToggleText.innerHTML = `Already have an account? <a href="#" onclick="toggleAuthMode()">Sign in</a>`;
@@ -687,15 +841,15 @@
 
             if (loginForm.style.display === 'none') {
                 // Switch to login
-                modalTitle.textContent = 'Sign In';
-                modalSubtitle.textContent = 'Welcome back to Nexus';
+                modalTitle.textContent = 'Welcome Back';
+                modalSubtitle.textContent = 'Sign in to continue your journey';
                 loginForm.style.display = 'block';
                 registerForm.style.display = 'none';
-                authToggleText.innerHTML = `Don't have an account? <a href="#" onclick="toggleAuthMode()">Sign up</a>`;
+                authToggleText.innerHTML = `Don't have an account? <a href="#" onclick="toggleAuthMode()">Create one now</a>`;
             } else {
                 // Switch to register
-                modalTitle.textContent = 'Create Account';
-                modalSubtitle.textContent = 'Join thousands of creators';
+                modalTitle.textContent = 'Join Nexus';
+                modalSubtitle.textContent = 'Start transforming your ideas today';
                 loginForm.style.display = 'none';
                 registerForm.style.display = 'block';
                 authToggleText.innerHTML = `Already have an account? <a href="#" onclick="toggleAuthMode()">Sign in</a>`;
