@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus - Transform Your Idea Into Reality</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #1e40af;
+            --accent-purple: #7c3aed;
+            --accent-orange: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+            --success-green: #10b981;
+            --border-color: rgba(148, 163, 184, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-light), var(--text-gray));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Project Generator */
+        .generator-container {
+            max-width: 800px;
+            margin: 0 auto 6rem;
+            padding: 0 2rem;
+        }
+
+        .generator-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .generator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .form-input {
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.5);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            padding: 1.2rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Usage Limits */
+        .usage-info {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .usage-info.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .usage-info.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        /* Features Grid */
+        .features {
+            max-width: 1200px;
+            margin: 0 auto 6rem;
+            padding: 0 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .feature-description {
+            color: var(--text-gray);
+        }
+
+        /* Loading State */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(37, 99, 235, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .generator-card {
+                padding: 2rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-brain"></i> Nexus
+            </div>
+            <div class="nav-actions">
+                {% if authenticated %}
+                    <a href="/dashboard" class="btn btn-outline">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                    <a href="/auth/logout" class="btn btn-primary">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                {% else %}
+                    <button onclick="showAuthModal('login')" class="btn btn-outline">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button onclick="showAuthModal('signup')" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Transform Your Idea Into Reality</h1>
+        <p class="subtitle">
+            Get a comprehensive roadmap, competitive analysis, and learning resources 
+            to turn your app idea into a successful digital product.
+        </p>
+    </section>
+
+    <!-- Project Generator -->
+    <section class="generator-container">
+        <div class="generator-card">
+            <!-- Usage Information -->
+            {% if not authenticated %}
+                <div class="usage-info">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Free Trial:</strong> Generate 1 project roadmap without signing up. 
+                    <a href="#" onclick="showAuthModal('signup')" style="color: var(--primary-blue);">Create account</a> for 3 free projects.
+                </div>
+            {% elif not usage.can_create %}
+                <div class="usage-info error">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Usage Limit Reached:</strong> You've used {{ usage.current_projects }}/{{ usage.max_projects }} projects. 
+                    <a href="/dashboard" style="color: var(--primary-blue);">Manage projects</a> or upgrade for unlimited access.
+                </div>
+            {% else %}
+                <div class="usage-info">
+                    <i class="fas fa-check-circle"></i>
+                    <strong>Projects:</strong> {{ usage.current_projects }}/{{ usage.max_projects }} used. 
+                    Ready to generate your next roadmap!
+                </div>
+            {% endif %}
+
+            <form class="generator-form" id="projectForm">
+                <div class="form-group">
+                    <label class="form-label" for="projectIdea">
+                        <i class="fas fa-lightbulb"></i> Describe Your Project Idea
+                    </label>
+                    <textarea 
+                        class="form-input form-textarea" 
+                        id="projectIdea" 
+                        name="project_idea" 
+                        placeholder="Example: A food delivery app that connects users with local restaurants, similar to DoorDash but focused on healthier options and supporting small businesses..."
+                        required
+                        {% if not usage.can_create %}disabled{% endif %}
+                    ></textarea>
+                </div>
+
+                <button 
+                    type="submit" 
+                    class="generate-btn"
+                    {% if not usage.can_create %}disabled{% endif %}
+                >
+                    <i class="fas fa-magic"></i> Generate My Project Roadmap
+                </button>
+            </form>
+
+            <!-- Loading State -->
+            <div class="loading" id="loadingState">
+                <div class="spinner"></div>
+                <p style="margin-top: 1rem; color: var(--text-gray);">
+                    Generating your comprehensive project roadmap...<br>
+                    <small>This may take 30-60 seconds</small>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">
+                What You'll Get
+            </h2>
+            <p style="font-size: 1.2rem; color: var(--text-gray); max-width: 600px; margin: 0 auto;">
+                Every Nexus report includes everything you need to go from idea to successful product
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-route"></i>
+                </div>
+                <h3 class="feature-title">Visual Project Roadmap</h3>
+                <p class="feature-description">
+                    Get a clear, phase-by-phase timeline showing exactly what to build and when, 
+                    from MVP to full launch.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="feature-title">Market Opportunity Analysis</h3>
+                <p class="feature-description">
+                    Discover why your project is needed with real user pain points and market gap analysis.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Competitive Landscape</h3>
+                <p class="feature-description">
+                    Understand your competition, their strengths and weaknesses, and your unique advantages.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3 class="feature-title">Technology Stack Recommendations</h3>
+                <p class="feature-description">
+                    Get expert-recommended technologies with detailed reasoning for your specific project needs.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-puzzle-piece"></i>
+                </div>
+                <h3 class="feature-title">MVP Feature Blueprint</h3>
+                <p class="feature-description">
+                    Prioritized list of core features to build first, designed to solve your users' main problems.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="feature-title">Curated Learning Hub</h3>
+                <p class="feature-description">
+                    Personalized curriculum with the best learning resources for every technology in your stack.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authentication Modal (if needed) -->
+    <div id="authModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: var(--card-bg); padding: 2rem; border-radius: 16px; max-width: 400px; width: 90%;">
+            <h3 id="authTitle" style="margin-bottom: 1.5rem; text-align: center;">Login</h3>
+            <form id="authForm">
+                <div style="margin-bottom: 1rem;">
+                    <input type="email" name="email" placeholder="Email" required class="form-input" style="width: 100%;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <input type="password" name="password" placeholder="Password" required class="form-input" style="width: 100%;">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                    <span id="authButtonText">Login</span>
+                </button>
+                <button type="button" onclick="hideAuthModal()" class="btn btn-outline" style="width: 100%;">
+                    Cancel
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Project form submission
+        document.getElementById('projectForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const loadingState = document.getElementById('loadingState');
+            const form = document.getElementById('projectForm');
+            
+            // Show loading state
+            form.style.display = 'none';
+            loadingState.classList.add('active');
+            
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Redirect to project view or show results
+                    if (result.project_id) {
+                        window.location.href = `/project/${result.project_id}`;
+                    } else {
+                        // For non-authenticated users, show results on same page
+                        displayProjectResults(result.report);
+                    }
+                } else {
+                    alert(result.message || result.error || 'Failed to generate project roadmap');
+                    form.style.display = 'block';
+                    loadingState.classList.remove('active');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to generate project roadmap');
+                form.style.display = 'block';
+                loadingState.classList.remove('active');
+            }
+        });
+
+        // Authentication modal functions
+        function showAuthModal(mode) {
+            const modal = document.getElementById('authModal');
+            const title = document.getElementById('authTitle');
+            const buttonText = document.getElementById('authButtonText');
+            const form = document.getElementById('authForm');
+            
+            if (mode === 'signup') {
+                title.textContent = 'Create Account';
+                buttonText.textContent = 'Sign Up';
+                form.action = '/auth/signup';
+            } else {
+                title.textContent = 'Login';
+                buttonText.textContent = 'Login';
+                form.action = '/auth/login';
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function hideAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        // Handle auth form submission
+        document.getElementById('authForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    const text = await response.text();
+                    alert(text || 'Authentication failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Authentication failed');
+            }
+        });
+
+        function displayProjectResults(report) {
+            // For non-authenticated users, replace the generator with results
+            // This would be implemented based on your UI preferences
+            console.log('Project report:', report);
+            alert('Project roadmap generated! Sign up to save and view your full report.');
+        }
+    </script>
+</body>
+</html> 
