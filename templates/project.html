@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.project_name }} - Nexus Project Report</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #1e40af;
+            --accent-purple: #7c3aed;
+            --accent-orange: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+            --success-green: #10b981;
+            --border-color: rgba(148, 163, 184, 0.2);
+            --gradient-bg: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-light);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Project Header */
+        .project-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .project-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-light), var(--text-gray));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-meta {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        /* Visual Roadmap Section */
+        .roadmap-section {
+            margin-bottom: 6rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .roadmap-phase {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .roadmap-phase:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .phase-number {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-right: 1.5rem;
+        }
+
+        .phase-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-duration {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .phase-description {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .phase-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .content-block h4 {
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .content-block ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-block li {
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .content-block li::before {
+            content: '→';
+            color: var(--primary-blue);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Nexus Intelligence Section */
+        .intelligence-section {
+            margin-bottom: 4rem;
+        }
+
+        .intelligence-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .intelligence-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .intelligence-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .intelligence-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .intel-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .intel-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+        }
+
+        .intel-card h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, var(--success-green), #059669);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .score-number {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .score-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Tech Stack Section */
+        .tech-stack-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+
+        .tech-category {
+            margin-bottom: 2rem;
+        }
+
+        .tech-category h4 {
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .tech-primary {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-name {
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-reasoning {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Learning Hub */
+        .learning-hub {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .learning-path {
+            margin-bottom: 2rem;
+        }
+
+        .learning-path h4 {
+            color: var(--accent-orange);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .path-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .path-step {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intelligence-grid,
+            .phase-content {
+                grid-template-columns: 1fr;
+            }
+
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-brain"></i> Nexus
+            </a>
+            <div style="display: flex; gap: 1rem;">
+                <a href="/dashboard" class="btn btn-outline">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+                <a href="/" class="btn btn-outline">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Project Header -->
+        <div class="project-header">
+            <h1 class="project-title">{{ report.project_idea }}</h1>
+            <div class="project-meta">
+                <i class="fas fa-calendar"></i> Generated on {{ project.created_at[:10] }}
+                | <i class="fas fa-clock"></i> Strategic Roadmap
+            </div>
+        </div>
+
+        <!-- Visual Roadmap Section -->
+        <section class="roadmap-section">
+            <h2 class="section-title">
+                <i class="fas fa-route"></i> Visual Project Roadmap
+            </h2>
+            
+            <div class="roadmap-timeline">
+                {% for phase in report.visual_roadmap.phases %}
+                <div class="roadmap-phase">
+                    <div class="phase-header">
+                        <div class="phase-number">{{ phase.id }}</div>
+                        <div>
+                            <h3 class="phase-title">{{ phase.title }}</h3>
+                            <div class="phase-duration">{{ phase.duration }}</div>
+                        </div>
+                    </div>
+                    
+                    <p class="phase-description">{{ phase.description }}</p>
+                    
+                    <div class="phase-content">
+                        <div class="content-block">
+                            <h4><i class="fas fa-tasks"></i> Key Activities</h4>
+                            <ul>
+                                {% for activity in phase.key_activities %}
+                                <li>{{ activity }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        <div class="content-block">
+                            <h4><i class="fas fa-check-circle"></i> Deliverables</h4>
+                            <ul>
+                                {% for deliverable in phase.deliverables %}
+                                <li>{{ deliverable }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Nexus Intelligence Section -->
+        <section class="intelligence-section">
+            <div class="intelligence-header">
+                <h2 class="intelligence-title">
+                    <i class="fas fa-brain"></i> Nexus Intelligence
+                </h2>
+                <p class="intelligence-subtitle">
+                    Comprehensive analysis and strategic insights for your project
+                </p>
+            </div>
+
+            <!-- Opportunity Analysis & Competitive Landscape -->
+            <div class="intelligence-grid">
+                <div class="intel-card">
+                    <h3><i class="fas fa-chart-line"></i> Opportunity Analysis</h3>
+                    
+                    {% if report.nexus_intelligence.opportunity_analysis.opportunity_score %}
+                    <div class="score-display">
+                        <div class="score-number">{{ report.nexus_intelligence.opportunity_analysis.opportunity_score }}/10</div>
+                        <div class="score-label">Market Opportunity Score</div>
+                    </div>
+                    {% endif %}
+                    
+                    <h4 style="color: var(--text-light); margin-bottom: 1rem;">Key Pain Points</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        {% for pain_point in report.nexus_intelligence.opportunity_analysis.pain_points %}
+                        <li style="color: var(--text-gray); margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-blue);">•</span>
+                            {{ pain_point }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="intel-card">
+                    <h3><i class="fas fa-users"></i> Competitive Landscape</h3>
+                    
+                    <h4 style="color: var(--text-light); margin-bottom: 1rem;">Market Gap</h4>
+                    <p style="color: var(--text-gray); margin-bottom: 1.5rem;">
+                        {{ report.nexus_intelligence.competitive_landscape.market_gap }}
+                    </p>
+                    
+                    <h4 style="color: var(--text-light); margin-bottom: 1rem;">Your Competitive Advantages</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        {% for advantage in report.nexus_intelligence.competitive_landscape.competitive_advantages %}
+                        <li style="color: var(--text-gray); margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success-green);">✓</span>
+                            {{ advantage }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- MVP Blueprint -->
+            <div class="intel-card" style="margin-bottom: 2rem;">
+                <h3><i class="fas fa-puzzle-piece"></i> MVP Feature Blueprint</h3>
+                
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                    <div>
+                        <h4 style="color: var(--text-light); margin-bottom: 1rem;">Core Features (Build First)</h4>
+                        {% for feature in report.nexus_intelligence.mvp_blueprint.core_features %}
+                        <div style="background: rgba(37, 99, 235, 0.1); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 0.5rem;">
+                                <strong style="color: var(--text-light);">{{ feature.name }}</strong>
+                                <span style="background: var(--primary-blue); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">
+                                    {{ feature.priority }}
+                                </span>
+                            </div>
+                            <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 0.5rem;">{{ feature.description }}</p>
+                            <small style="color: var(--text-gray);">Estimated effort: {{ feature.effort }}</small>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: var(--text-light); margin-bottom: 1rem;">Nice-to-Have (Later)</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            {% for feature in report.nexus_intelligence.mvp_blueprint.nice_to_have_features %}
+                            <li style="color: var(--text-gray); margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--accent-orange);">◦</span>
+                                {{ feature }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technology Stack -->
+            <div class="tech-stack-section">
+                <h3 style="color: var(--primary-blue); font-size: 1.8rem; margin-bottom: 2rem;">
+                    <i class="fas fa-cogs"></i> Recommended Technology Stack
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    {% for category, details in report.nexus_intelligence.tech_stack.items() %}
+                    {% if category != 'development_timeline' %}
+                    <div class="tech-category">
+                        <h4>{{ category.title() }}</h4>
+                        <div class="tech-primary">
+                            <div class="tech-name">{{ details.primary }}</div>
+                            <div class="tech-reasoning">{{ details.reasoning }}</div>
+                        </div>
+                        {% if details.alternatives %}
+                        <div style="margin-top: 0.5rem;">
+                            <small style="color: var(--text-gray);">
+                                <strong>Alternatives:</strong> {{ details.alternatives | join(', ') }}
+                            </small>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 1.5rem; text-align: center; margin-top: 2rem;">
+                    <strong style="color: var(--success-green);">Development Timeline:</strong>
+                    <span style="color: var(--text-light); margin-left: 0.5rem;">
+                        {{ report.nexus_intelligence.tech_stack.development_timeline }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Learning Hub -->
+            <div class="learning-hub">
+                <h3 style="color: var(--accent-orange); font-size: 1.8rem; margin-bottom: 2rem;">
+                    <i class="fas fa-graduation-cap"></i> Curated Learning Hub
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    <div class="learning-path">
+                        <h4>Beginner Path</h4>
+                        <div class="path-steps">
+                            {% for step in report.nexus_intelligence.learning_hub.beginner_path %}
+                            <div class="path-step">{{ step }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="learning-path">
+                        <h4>Intermediate Path</h4>
+                        <div class="path-steps">
+                            {% for step in report.nexus_intelligence.learning_hub.intermediate_path %}
+                            <div class="path-step">{{ step }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="learning-path">
+                        <h4>Advanced Path</h4>
+                        <div class="path-steps">
+                            {% for step in report.nexus_intelligence.learning_hub.advanced_path %}
+                            <div class="path-step">{{ step }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 1.5rem; text-align: center;">
+                    <strong style="color: var(--accent-orange);">Estimated Learning Time:</strong>
+                    <span style="color: var(--text-light); margin-left: 0.5rem;">
+                        {{ report.nexus_intelligence.learning_hub.estimated_learning_time }}
+                    </span>
+                </div>
+            </div>
+        </section>
+
+    <!-- Interactive Refinement Chat -->
+    <section style="margin-bottom: 4rem;">
+        <div style="background: var(--card-bg); border-radius: 20px; padding: 3rem; border: 1px solid var(--border-color);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-blue); font-size: 1.8rem; margin: 0;">
+                    <i class="fas fa-comments"></i> Refine Your Roadmap
+                </h3>
+                <button id="toggleChat" class="btn btn-outline" style="padding: 0.5rem 1rem;">
+                    <i class="fas fa-chevron-down"></i> <span>Show Chat</span>
+                </button>
+            </div>
+            
+            <p style="color: var(--text-gray); margin-bottom: 2rem;">
+                Have questions or want to refine your roadmap? Chat with AI to get personalized recommendations and modifications.
+            </p>
+            
+            <div id="chatInterface" style="display: none;">
+                <!-- Chat History -->
+                <div id="chatHistory" style="max-height: 400px; overflow-y: auto; background: rgba(15, 23, 42, 0.5); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="text-align: center; color: var(--text-gray); padding: 2rem;">
+                        <i class="fas fa-robot" style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary-blue);"></i>
+                        <p>Hi! I'm here to help you refine your project roadmap. You can ask me about:</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                            <div class="suggestion-chip" onclick="sendSuggestion('How can I reduce the budget for this project?')">
+                                💰 Budget optimization
+                            </div>
+                            <div class="suggestion-chip" onclick="sendSuggestion('Can you make the timeline faster?')">
+                                ⚡ Timeline adjustments
+                            </div>
+                            <div class="suggestion-chip" onclick="sendSuggestion('What features should I prioritize?')">
+                                🎯 Feature prioritization
+                            </div>
+                            <div class="suggestion-chip" onclick="sendSuggestion('Are there better technology options?')">
+                                🔧 Tech stack alternatives
+                            </div>
+                            <div class="suggestion-chip" onclick="sendSuggestion('Tell me more about the market opportunity')">
+                                📊 Market analysis
+                            </div>
+                            <div class="suggestion-chip" onclick="sendSuggestion('Customize my learning path')">
+                                📚 Learning customization
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Input -->
+                <div style="display: flex; gap: 1rem; align-items: flex-end;">
+                    <div style="flex: 1;">
+                        <textarea 
+                            id="chatInput" 
+                            placeholder="Ask me anything about your project roadmap..." 
+                            style="width: 100%; min-height: 60px; padding: 1rem; border: 1px solid var(--border-color); border-radius: 12px; background: rgba(15, 23, 42, 0.5); color: var(--text-light); resize: vertical; font-family: inherit;"
+                            onkeydown="handleChatKeydown(event)"
+                        ></textarea>
+                    </div>
+                    <button 
+                        id="sendChatBtn" 
+                        onclick="sendChatMessage()" 
+                        style="background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple)); color: white; border: none; padding: 1rem 1.5rem; border-radius: 12px; font-weight: 600; cursor: pointer; min-width: 120px; height: fit-content;"
+                    >
+                        <i class="fas fa-paper-plane"></i> Send
+                    </button>
+                </div>
+                
+                <!-- Loading Indicator -->
+                <div id="chatLoading" style="display: none; text-align: center; padding: 1rem; color: var(--text-gray);">
+                    <i class="fas fa-spinner fa-spin"></i> AI is analyzing your request...
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    .suggestion-chip {
+        background: rgba(37, 99, 235, 0.1);
+        border: 1px solid rgba(37, 99, 235, 0.3);
+        border-radius: 20px;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        color: var(--text-light);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    
+    .suggestion-chip:hover {
+        background: rgba(37, 99, 235, 0.2);
+        border-color: var(--primary-blue);
+        transform: translateY(-2px);
+    }
+    
+    .chat-message {
+        margin-bottom: 1.5rem;
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .chat-message.user {
+        flex-direction: row-reverse;
+    }
+    
+    .chat-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+    
+    .chat-message.user .chat-avatar {
+        background: var(--primary-blue);
+        color: white;
+    }
+    
+    .chat-message.ai .chat-avatar {
+        background: linear-gradient(135deg, var(--accent-purple), var(--primary-blue));
+        color: white;
+    }
+    
+    .chat-content {
+        max-width: 70%;
+        padding: 1rem 1.5rem;
+        border-radius: 16px;
+        line-height: 1.5;
+    }
+    
+    .chat-message.user .chat-content {
+        background: var(--primary-blue);
+        color: white;
+        border-bottom-right-radius: 6px;
+    }
+    
+    .chat-message.ai .chat-content {
+        background: rgba(148, 163, 184, 0.1);
+        border: 1px solid var(--border-color);
+        color: var(--text-light);
+        border-bottom-left-radius: 6px;
+    }
+    
+    .suggestions-list {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .suggestion-item {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 8px;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-gray);
+    }
+    
+    .update-badge {
+        background: var(--accent-orange);
+        color: white;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+</style>
+
+ <script>
+     const projectId = parseInt('{{ project.id }}');
+     let chatVisible = false;
+    
+    // Toggle chat interface
+    function toggleChatInterface() {
+        const chatInterface = document.getElementById('chatInterface');
+        const toggleBtn = document.getElementById('toggleChat');
+        const icon = toggleBtn.querySelector('i');
+        const text = toggleBtn.querySelector('span');
+        
+        chatVisible = !chatVisible;
+        
+        if (chatVisible) {
+            chatInterface.style.display = 'block';
+            icon.className = 'fas fa-chevron-up';
+            text.textContent = 'Hide Chat';
+            loadConversationHistory();
+        } else {
+            chatInterface.style.display = 'none';
+            icon.className = 'fas fa-chevron-down';
+            text.textContent = 'Show Chat';
+        }
+    }
+    
+    document.getElementById('toggleChat').addEventListener('click', toggleChatInterface);
+    
+    // Load conversation history
+    async function loadConversationHistory() {
+        try {
+            const response = await fetch(`/project/${projectId}/conversations`);
+            const data = await response.json();
+            
+            if (data.success && data.conversations.length > 0) {
+                const chatHistory = document.getElementById('chatHistory');
+                chatHistory.innerHTML = '';
+                
+                data.conversations.forEach(conv => {
+                    addChatMessage(conv.user_message, 'user', conv.created_at);
+                    addChatMessage(conv.ai_response, 'ai', conv.created_at, conv.refinements);
+                });
+            }
+        } catch (error) {
+            console.error('Error loading conversation history:', error);
+        }
+    }
+    
+    // Send chat message
+    async function sendChatMessage() {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        
+        if (!message) return;
+        
+        // Add user message to chat
+        addChatMessage(message, 'user');
+        
+        // Clear input and show loading
+        input.value = '';
+        document.getElementById('chatLoading').style.display = 'block';
+        document.getElementById('sendChatBtn').disabled = true;
+        
+        try {
+            const response = await fetch(`/project/${projectId}/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Add AI response to chat
+                addChatMessage(data.message, 'ai', null, data.suggestions, data.has_updates);
+                
+                // If there are updates, show option to refresh
+                if (data.has_updates) {
+                    showUpdateNotification();
+                }
+            } else {
+                addChatMessage(data.error || 'Sorry, I encountered an error. Please try again.', 'ai');
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+            addChatMessage('Sorry, I encountered an error. Please try again.', 'ai');
+        } finally {
+            document.getElementById('chatLoading').style.display = 'none';
+            document.getElementById('sendChatBtn').disabled = false;
+        }
+    }
+    
+    // Add message to chat display
+    function addChatMessage(message, sender, timestamp = null, suggestions = null, hasUpdates = false) {
+        const chatHistory = document.getElementById('chatHistory');
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message ${sender}`;
+        
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = 'chat-avatar';
+        avatarDiv.innerHTML = sender === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'chat-content';
+        contentDiv.innerHTML = message;
+        
+        if (hasUpdates) {
+            contentDiv.innerHTML += '<span class="update-badge">Roadmap Updated</span>';
+        }
+        
+        // Add suggestions if provided
+        if (suggestions && suggestions.length > 0) {
+            const suggestionsDiv = document.createElement('div');
+            suggestionsDiv.className = 'suggestions-list';
+            suggestionsDiv.innerHTML = '<strong style="color: var(--primary-blue);">💡 Suggestions:</strong>';
+            
+            suggestions.forEach(suggestion => {
+                const suggestionDiv = document.createElement('div');
+                suggestionDiv.className = 'suggestion-item';
+                suggestionDiv.textContent = suggestion;
+                suggestionsDiv.appendChild(suggestionDiv);
+            });
+            
+            contentDiv.appendChild(suggestionsDiv);
+        }
+        
+        messageDiv.appendChild(avatarDiv);
+        messageDiv.appendChild(contentDiv);
+        
+        chatHistory.appendChild(messageDiv);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+    
+    // Handle keyboard shortcuts
+    function handleChatKeydown(event) {
+        if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
+            sendChatMessage();
+        }
+    }
+    
+    // Send suggested questions
+    function sendSuggestion(suggestion) {
+        document.getElementById('chatInput').value = suggestion;
+        sendChatMessage();
+    }
+    
+    // Show update notification
+    function showUpdateNotification() {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success-green);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        `;
+        notification.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <span>Roadmap updated!</span>
+            <button onclick="location.reload()" style="background: none; border: 1px solid white; color: white; padding: 0.3rem 0.8rem; border-radius: 4px; margin-left: 1rem; cursor: pointer;">
+                Refresh to see changes
+            </button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 5000);
+    }
+</script> 
