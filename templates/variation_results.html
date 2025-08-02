@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Roadmap Analysis - Nexus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Premium Dark Theme - Apple/Goldman Inspired */
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --bg-card: #1c1c1e;
+            --bg-glass: rgba(28, 28, 30, 0.8);
+            
+            /* Professional Accent Colors */
+            --accent-blue: #007AFF;
+            --accent-blue-hover: #0056D3;
+            --accent-gold: #FFD700;
+            --accent-green: #30D158;
+            --accent-red: #FF453A;
+            --accent-purple: #BF5AF2;
+            
+            /* Text Colors */
+            --text-primary: #ffffff;
+            --text-secondary: #98989D;
+            --text-tertiary: #636366;
+            --text-accent: #007AFF;
+            
+            /* Border & Effects */
+            --border-primary: rgba(255, 255, 255, 0.1);
+            --border-accent: rgba(0, 122, 255, 0.3);
+            --shadow-premium: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.4);
+            --glow-blue: 0 0 20px rgba(0, 122, 255, 0.3);
+            
+            /* Animation */
+            --transition-premium: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            --border-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Premium Background with Subtle Animation */
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 122, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(48, 209, 88, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundShift {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-10px) translateY(-5px); }
+        }
+
+        .main-container {
+            min-height: 100vh;
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        /* Premium Glass Card Components */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-primary);
+            box-shadow: var(--shadow-premium);
+            transition: var(--transition-premium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-accent);
+        }
+
+        /* Premium Header Section */
+        .header-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .nexus-logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 50%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 30px rgba(0, 122, 255, 0.3);
+        }
+
+        .nexus-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-gold));
+            border-radius: 2px;
+            box-shadow: var(--glow-blue);
+        }
+
+        .main-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .signal-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-green) 0%, #20A144 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 20px rgba(48, 209, 88, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .results-info {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        /* Premium Navigation Section */
+        .navigation-section {
+            margin-bottom: 3rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            padding: 2.5rem;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-hover) 100%);
+            border: none;
+            padding: 1.25rem 2.5rem;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition-premium);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: var(--glow-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 122, 255, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #FFA500 100%);
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+            color: var(--bg-primary);
+        }
+
+        .export-btn:hover {
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+            color: var(--bg-primary);
+        }
+
+        /* Premium Watchlists Section */
+        .variations-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: 2rem 3rem;
+            border-bottom: 1px solid var(--border-primary);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 20px rgba(191, 90, 242, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .section-content {
+            padding: 3rem;
+        }
+
+        .variations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .variation-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border: 2px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: var(--transition-premium);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .variation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+        }
+
+        .variation-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-accent);
+        }
+
+        .variation-card.active {
+            border-color: var(--accent-blue);
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.1) 0%, rgba(191, 90, 242, 0.1) 100%);
+            box-shadow: var(--glow-blue);
+        }
+
+        .variation-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: block;
+            transition: var(--transition-premium);
+        }
+
+        .variation-link:hover {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        /* Premium Results Section */
+        .results-section {
+            margin-bottom: 3rem;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 2.5rem 3rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .results-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .results-content {
+            padding: 3rem;
+        }
+
+        .result-item {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border: 2px solid var(--border-primary);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: var(--transition-premium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+        }
+
+        .result-item:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-accent);
+        }
+
+        .result-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-thumbnail {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid var(--border-primary);
+            background: var(--bg-tertiary);
+            transition: var(--transition-premium);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-thumbnail:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .result-thumbnail-placeholder {
+            width: 90px;
+            height: 90px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border: 2px solid var(--border-primary);
+            flex-shrink: 0;
+            box-shadow: var(--glow-blue);
+        }
+
+        .result-content {
+            flex: 1;
+        }
+
+        .result-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-bottom: 0.75rem;
+            display: block;
+            transition: var(--transition-premium);
+            line-height: 1.4;
+        }
+
+        .result-title:hover {
+            color: var(--accent-blue);
+            text-decoration: underline;
+        }
+
+        .result-url {
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            word-break: break-all;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .result-snippet {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Premium Category Badges */
+        .category-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: white;
+            margin-right: 0.75rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-financial { 
+            background: linear-gradient(135deg, var(--accent-green), #20A144);
+        }
+        .category-market { 
+            background: linear-gradient(135deg, var(--accent-purple), #9A3FD4);
+        }
+        .category-technology { 
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-blue-hover));
+        }
+        .category-compliance { 
+            background: linear-gradient(135deg, var(--accent-gold), #FFA500);
+        }
+        .category-operations { 
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+        }
+        .category-customer { 
+            background: linear-gradient(135deg, #FF5722, #E64A19);
+        }
+
+        /* Premium AI Analysis Box */
+        .ai-analysis-box {
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.1) 0%, rgba(191, 90, 242, 0.1) 100%);
+            border-left: 4px solid var(--accent-blue);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+            border: 1px solid var(--border-accent);
+        }
+
+        .ai-analysis-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .ai-analysis-header i {
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .ai-analysis-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Premium Sentiment Display */
+        .sentiment-display {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+            gap: 1rem;
+        }
+
+        .sentiment-badge {
+            padding: 0.5rem 1.25rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sentiment-positive {
+            background: linear-gradient(135deg, var(--accent-green), #20A144);
+            color: white;
+        }
+
+        .sentiment-negative {
+            background: linear-gradient(135deg, var(--accent-red), #D70015);
+            color: white;
+        }
+
+        .sentiment-neutral {
+            background: linear-gradient(135deg, var(--text-tertiary), #5A5A5E);
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 5rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .empty-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Premium Animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Design */
+                 @media (max-width: 768px) {
+             .main-container {
+                 padding: 1rem;
+             }
+             
+             .nexus-logo {
+                font-size: 2.5rem;
+            }
+            
+            .main-title {
+                font-size: 1.6rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .variations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .result-header {
+                flex-direction: column;
+            }
+
+            .result-thumbnail, .result-thumbnail-placeholder {
+                width: 100%;
+                height: 200px;
+                align-self: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+
+    <div class="main-container">
+        <div class="container">
+            <!-- Premium Header Section -->
+            <div class="header-section fade-in">
+                <div class="nexus-logo">Nexus</div>
+                <h1 class="main-title">Project Roadmap Analysis</h1>
+                <div class="signal-badge">
+                    <i class="fas fa-rocket me-2"></i>{{ variation }}
+                </div>
+                <div class="results-info">
+                    <i class="fas fa-robot me-2"></i>Generated {{ total_results }} development recommendations
+                </div>
+            </div>
+
+            <!-- Premium Navigation Section -->
+            <div class="navigation-section glass-card slide-in">
+                <div class="nav-buttons">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        Return to Dashboard
+                    </a>
+                    <a href="/export-variation-results" class="nav-btn export-btn">
+                        <i class="fas fa-download"></i>
+                        Export Analysis
+                    </a>
+                </div>
+            </div>
+
+            <!-- Intelligence Watchlists Quick Access -->
+            <div class="variations-section glass-card slide-in">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="section-title">Market Intelligence Watchlists</h3>
+                </div>
+                <div class="section-content">
+                    <div class="variations-grid">
+                        {% for var in user_variations %}
+                        <div class="variation-card {% if var == variation %}active{% endif %}">
+                            <a href="/variation-search/{{ var }}" class="variation-link">
+                                <i class="fas fa-chart-line me-2"></i>{{ var }}
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Results Section -->
+            <div class="results-section glass-card slide-in">
+                <div class="results-header">
+                    <h3 class="results-title">
+                        <i class="fas fa-brain me-2"></i>
+                        AI Market Intelligence
+                    </h3>
+                </div>
+                
+                <div class="results-content">
+                    {% if results %}
+                        {% for r in results %}
+                        <div class="result-item">
+                            <div class="result-header">
+                                {% if r.thumbnail %}
+                                <img src="{{ r.thumbnail }}" alt="Thumbnail for {{ r.title|safe|striptags }}" class="result-thumbnail" 
+                                     onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="result-thumbnail-placeholder" style="display: none;">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                {% else %}
+                                <div class="result-thumbnail-placeholder">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                                {% endif %}
+                                <div class="result-content">
+                                    <a href="{{ r.link }}" target="_blank" class="result-title">{{ r.title|safe }}</a>
+                                    <div class="result-url">{{ r.link }}</div>
+                                    <div class="result-snippet">{{ r.snippet|safe }}</div>
+                                    
+                                    <!-- Premium Category Display -->
+                                    {% if r.categories %}
+                                    <div style="margin: 1.5rem 0;">
+                                        {% for category in r.categories %}
+                                        <span class="category-badge category-{{ category.lower() }}">{{ category }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    
+                                    <!-- Premium AI Analysis -->
+                                    {% if r.summary %}
+                                    <div class="ai-analysis-box">
+                                        <div class="ai-analysis-header">
+                                            <i class="fas fa-brain"></i>
+                                            <span>AI Market Intelligence:</span>
+                                        </div>
+                                        <div class="ai-analysis-content">
+                                            {{ r.summary|safe }}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    <!-- Premium Sentiment Analysis -->
+                                    {% if r.sentiment is defined %}
+                                    <div class="sentiment-display">
+                                        <i class="fas fa-chart-line" style="color: var(--accent-blue);"></i>
+                                        <span class="sentiment-badge sentiment-{{ 'positive' if r.sentiment > 0.1 else 'negative' if r.sentiment < -0.1 else 'neutral' }}">
+                                            Sentiment: {{ "%.2f"|format(r.sentiment) }} {{ "BULLISH" if r.sentiment > 0.1 else "BEARISH" if r.sentiment < -0.1 else "NEUTRAL" }}
+                                        </span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="empty-title">No trading signals detected</div>
+                            <div class="empty-description">No market intelligence signals were found for "{{ variation }}". Try adjusting your search parameters or check market conditions.</div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Premium animation observer
+            const elements = document.querySelectorAll('.slide-in, .fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+                observer.observe(el);
+            });
+
+            // Premium hover effects for glass cards
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Smooth scrolling for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add subtle parallax effect
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const background = document.querySelector('.background-pattern');
+                if (background) {
+                    background.style.transform = `translateY(${scrolled * 0.2}px)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

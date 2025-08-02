@@ -3,179 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus - Transform Your Idea Into Reality</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Nexus - AI-Powered Project Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=SF+Pro+Text:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            /* Premium Color Palette */
+            --primary-dark: #1d1d1f;
+            --secondary-dark: #2c2c2e;
+            --accent-blue: #007aff;
+            --accent-blue-hover: #0056b3;
+            --success-green: #34c759;
+            --warning-orange: #ff9500;
+            --error-red: #ff3b30;
+            
+            /* Premium Grays */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f7;
+            --gray-200: #e5e5e7;
+            --gray-300: #d1d1d6;
+            --gray-400: #a1a1a6;
+            --gray-500: #8e8e93;
+            --gray-600: #636366;
+            --gray-700: #48484a;
+            --gray-800: #2c2c2e;
+            --gray-900: #1d1d1f;
+            
+            /* Typography */
+            --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-text: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-blue: #2563eb;
-            --secondary-blue: #1e40af;
-            --accent-purple: #7c3aed;
-            --accent-orange: #f59e0b;
-            --dark-bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-light: #f8fafc;
-            --text-gray: #94a3b8;
-            --success-green: #10b981;
-            --border-color: rgba(148, 163, 184, 0.2);
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
-            color: var(--text-light);
-            min-height: 100vh;
+            font-family: var(--font-text);
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
+            color: var(--gray-900);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Header */
-        .header {
-            background: rgba(15, 23, 42, 0.95);
+        /* Premium Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem 0;
-            position: sticky;
+            border-bottom: 1px solid var(--gray-200);
+            padding: var(--spacing-sm) 0;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 var(--spacing-lg);
         }
 
         .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .logo i {
+            color: var(--accent-blue);
             font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .nav-actions {
             display: flex;
-            gap: 1rem;
             align-items: center;
+            gap: var(--spacing-sm);
         }
 
         .btn {
-            padding: 0.6rem 1.5rem;
+            font-family: var(--font-text);
+            font-weight: 500;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-lg);
             border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--primary-blue);
-            color: var(--primary-blue);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary-blue);
-            color: white;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            background: var(--accent-blue);
             color: white;
-            border: none;
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            background: var(--accent-blue-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-400);
         }
 
         /* Hero Section */
         .hero {
+            margin-top: 80px;
+            padding: var(--spacing-2xl) 0;
             text-align: center;
-            padding: 6rem 2rem 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, var(--gray-50) 0%, white 50%, var(--gray-100) 100%);
         }
 
-        .hero h1 {
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
             font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--text-light), var(--text-gray));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-md);
             line-height: 1.1;
         }
 
-        .hero .subtitle {
-            font-size: 1.3rem;
-            color: var(--text-gray);
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.4;
         }
 
         /* Project Generator */
-        .generator-container {
-            max-width: 800px;
-            margin: 0 auto 6rem;
-            padding: 0 2rem;
-        }
-
-        .generator-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 3rem;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .generator-form {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+        .generator-section {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            margin: var(--spacing-xl) 0;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
         }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            margin-bottom: var(--spacing-lg);
         }
 
         .form-label {
-            font-weight: 600;
-            color: var(--text-light);
-            font-size: 1.1rem;
+            display: block;
+            font-weight: 500;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-xs);
         }
 
         .form-input {
-            padding: 1rem 1.5rem;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            background: rgba(15, 23, 42, 0.5);
-            color: var(--text-light);
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-text);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            background: var(--gray-50);
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            border-color: var(--accent-blue);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
         }
 
         .form-textarea {
@@ -183,254 +224,295 @@
             resize: vertical;
         }
 
-        .generate-btn {
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
-            color: white;
-            padding: 1.2rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
-        }
-
-        .generate-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Usage Limits */
-        .usage-info {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .usage-info.warning {
-            background: rgba(245, 158, 11, 0.1);
-            border-color: rgba(245, 158, 11, 0.3);
-        }
-
-        .usage-info.error {
-            background: rgba(239, 68, 68, 0.1);
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-
-        /* Features Grid */
-        .features {
-            max-width: 1200px;
-            margin: 0 auto 6rem;
-            padding: 0 2rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-blue);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-        }
-
-        .feature-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-        }
-
-        .feature-description {
-            color: var(--text-gray);
-        }
-
         /* Loading State */
         .loading {
             display: none;
             text-align: center;
-            padding: 2rem;
+            padding: var(--spacing-xl);
         }
 
-        .loading.active {
-            display: block;
-        }
-
-        .spinner {
-            display: inline-block;
+        .loading-spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid rgba(37, 99, 235, 0.3);
+            border: 3px solid var(--gray-200);
+            border-top: 3px solid var(--accent-blue);
             border-radius: 50%;
-            border-top-color: var(--primary-blue);
-            animation: spin 1s ease-in-out infinite;
+            animation: spin 1s linear infinite;
+            margin: 0 auto var(--spacing-md);
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Authentication Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            max-width: 400px;
+            width: 90%;
+            box-shadow: var(--shadow-xl);
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-500);
+            cursor: pointer;
+            padding: var(--spacing-xs);
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .auth-toggle {
+            text-align: center;
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .auth-toggle a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-blue), #0056b3);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .feature-description {
+            color: var(--gray-600);
+            line-height: 1.5;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
+            .hero-title {
                 font-size: 2.5rem;
             }
 
-            .hero .subtitle {
+            .hero-subtitle {
                 font-size: 1.1rem;
             }
 
-            .generator-card {
-                padding: 2rem;
+            .nav-container {
+                padding: 0 var(--spacing-sm);
             }
 
-            .nav-container {
-                padding: 0 1rem;
+            .generator-section {
+                margin: var(--spacing-lg) var(--spacing-sm);
+                padding: var(--spacing-lg);
             }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translate(-50%, -60%); opacity: 0; }
+            to { transform: translate(-50%, -50%); opacity: 1; }
+        }
+
+        .alert {
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            border: 1px solid;
+        }
+
+        .alert-success {
+            background: rgba(52, 199, 89, 0.1);
+            border-color: var(--success-green);
+            color: #1b5e20;
+        }
+
+        .alert-error {
+            background: rgba(255, 59, 48, 0.1);
+            border-color: var(--error-red);
+            color: #c62828;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-brain"></i> Nexus
-            </div>
+            <a href="/" class="logo">
+                <i class="fas fa-brain"></i>
+                Nexus
+            </a>
             <div class="nav-actions">
-                {% if authenticated %}
-                    <a href="/dashboard" class="btn btn-outline">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard
-                    </a>
-                    <a href="/auth/logout" class="btn btn-primary">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                {% else %}
-                    <button onclick="showAuthModal('login')" class="btn btn-outline">
-                        <i class="fas fa-sign-in-alt"></i> Login
+                <div id="authButtons">
+                    <button class="btn btn-secondary" onclick="openModal('login')">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
                     </button>
-                    <button onclick="showAuthModal('signup')" class="btn btn-primary">
-                        <i class="fas fa-user-plus"></i> Sign Up
+                    <button class="btn btn-primary" onclick="openModal('register')">
+                        <i class="fas fa-user-plus"></i>
+                        Get Started
                     </button>
-                {% endif %}
+                </div>
+                <div id="userMenu" style="display: none;">
+                    <span id="userName" class="user-name"></span>
+                    <button class="btn btn-secondary" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sign Out
+                    </button>
+                </div>
             </div>
         </div>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Transform Your Idea Into Reality</h1>
-        <p class="subtitle">
-            Get a comprehensive roadmap, competitive analysis, and learning resources 
-            to turn your app idea into a successful digital product.
-        </p>
+        <div class="hero-container">
+            <h1 class="hero-title">Transform Ideas into Strategic Plans</h1>
+            <p class="hero-subtitle">
+                AI-powered project intelligence that turns your app ideas into comprehensive roadmaps, 
+                market analysis, and personalized learning paths.
+            </p>
+        </div>
     </section>
 
-    <!-- Project Generator -->
-    <section class="generator-container">
-        <div class="generator-card">
-            <!-- Usage Information -->
-            {% if not authenticated %}
-                <div class="usage-info">
-                    <i class="fas fa-info-circle"></i>
-                    <strong>Free Trial:</strong> Generate 1 project roadmap without signing up. 
-                    <a href="#" onclick="showAuthModal('signup')" style="color: var(--primary-blue);">Create account</a> for 3 free projects.
-                </div>
-            {% elif not usage.can_create %}
-                <div class="usage-info error">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <strong>Usage Limit Reached:</strong> You've used {{ usage.current_projects }}/{{ usage.max_projects }} projects. 
-                    <a href="/dashboard" style="color: var(--primary-blue);">Manage projects</a> or upgrade for unlimited access.
-                </div>
-            {% else %}
-                <div class="usage-info">
-                    <i class="fas fa-check-circle"></i>
-                    <strong>Projects:</strong> {{ usage.current_projects }}/{{ usage.max_projects }} used. 
-                    Ready to generate your next roadmap!
-                </div>
-            {% endif %}
+    <!-- Main Container -->
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-lg);">
+        
+        <!-- Project Generator -->
+        <div class="generator-section">
+            <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+                <h2 style="font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--gray-900); margin-bottom: var(--spacing-xs);">
+                    Generate Your Project Roadmap
+                </h2>
+                <p style="color: var(--gray-600);">
+                    Describe your app idea and get a comprehensive strategic plan in seconds
+                </p>
+            </div>
 
-            <form class="generator-form" id="projectForm">
+            <form id="projectForm" onsubmit="generateProject(event)">
                 <div class="form-group">
                     <label class="form-label" for="projectIdea">
                         <i class="fas fa-lightbulb"></i> Describe Your Project Idea
                     </label>
                     <textarea 
-                        class="form-input form-textarea" 
                         id="projectIdea" 
                         name="project_idea" 
-                        placeholder="Example: A food delivery app that connects users with local restaurants, similar to DoorDash but focused on healthier options and supporting small businesses..."
+                        class="form-input form-textarea" 
+                        placeholder="e.g., A food delivery app for college students with real-time tracking and group ordering features..."
                         required
-                        {% if not usage.can_create %}disabled{% endif %}
                     ></textarea>
                 </div>
 
-                <button 
-                    type="submit" 
-                    class="generate-btn"
-                    {% if not usage.can_create %}disabled{% endif %}
-                >
-                    <i class="fas fa-magic"></i> Generate My Project Roadmap
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: var(--spacing-md); font-size: 1.1rem;">
+                    <i class="fas fa-rocket"></i>
+                    Generate Strategic Plan
                 </button>
             </form>
 
             <!-- Loading State -->
-            <div class="loading" id="loadingState">
-                <div class="spinner"></div>
-                <p style="margin-top: 1rem; color: var(--text-gray);">
-                    Generating your comprehensive project roadmap...<br>
-                    <small>This may take 30-60 seconds</small>
-                </p>
+            <div id="loadingState" class="loading">
+                <div class="loading-spinner"></div>
+                <h3 style="color: var(--gray-700); margin-bottom: var(--spacing-xs);">Analyzing Your Project</h3>
+                <p style="color: var(--gray-500);">Our AI is creating your comprehensive roadmap...</p>
             </div>
         </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div style="text-align: center; margin-bottom: 3rem;">
-            <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">
-                What You'll Get
-            </h2>
-            <p style="font-size: 1.2rem; color: var(--text-gray); max-width: 600px; margin: 0 auto;">
-                Every Nexus report includes everything you need to go from idea to successful product
-            </p>
-        </div>
-
-        <div class="features-grid">
+        <!-- Features -->
+        <div class="features">
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-route"></i>
                 </div>
-                <h3 class="feature-title">Visual Project Roadmap</h3>
+                <h3 class="feature-title">Visual Roadmap</h3>
                 <p class="feature-description">
-                    Get a clear, phase-by-phase timeline showing exactly what to build and when, 
-                    from MVP to full launch.
+                    Get a clear, timeline-based project roadmap with phases, milestones, and deliverables.
                 </p>
             </div>
 
@@ -438,19 +520,9 @@
                 <div class="feature-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
-                <h3 class="feature-title">Market Opportunity Analysis</h3>
+                <h3 class="feature-title">Market Intelligence</h3>
                 <p class="feature-description">
-                    Discover why your project is needed with real user pain points and market gap analysis.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3 class="feature-title">Competitive Landscape</h3>
-                <p class="feature-description">
-                    Understand your competition, their strengths and weaknesses, and your unique advantages.
+                    Deep market analysis, competitive landscape, and opportunity assessment for your idea.
                 </p>
             </div>
 
@@ -458,19 +530,9 @@
                 <div class="feature-icon">
                     <i class="fas fa-cogs"></i>
                 </div>
-                <h3 class="feature-title">Technology Stack Recommendations</h3>
+                <h3 class="feature-title">Tech Stack</h3>
                 <p class="feature-description">
-                    Get expert-recommended technologies with detailed reasoning for your specific project needs.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-puzzle-piece"></i>
-                </div>
-                <h3 class="feature-title">MVP Feature Blueprint</h3>
-                <p class="feature-description">
-                    Prioritized list of core features to build first, designed to solve your users' main problems.
+                    Modern technology recommendations with clear justifications and implementation guidance.
                 </p>
             </div>
 
@@ -478,130 +540,334 @@
                 <div class="feature-icon">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <h3 class="feature-title">Curated Learning Hub</h3>
+                <h3 class="feature-title">Learning Path</h3>
                 <p class="feature-description">
-                    Personalized curriculum with the best learning resources for every technology in your stack.
+                    Curated learning resources and skills development plan tailored to your project.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="feature-title">Interactive Refinement</h3>
+                <p class="feature-description">
+                    Chat with AI to continuously refine and improve your project roadmap.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">Secure & Private</h3>
+                <p class="feature-description">
+                    Your projects are securely stored with enterprise-grade authentication and privacy.
                 </p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Authentication Modal (if needed) -->
-    <div id="authModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
-        <div style="background: var(--card-bg); padding: 2rem; border-radius: 16px; max-width: 400px; width: 90%;">
-            <h3 id="authTitle" style="margin-bottom: 1.5rem; text-align: center;">Login</h3>
-            <form id="authForm">
-                <div style="margin-bottom: 1rem;">
-                    <input type="email" name="email" placeholder="Email" required class="form-input" style="width: 100%;">
+    <!-- Authentication Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            
+            <div class="modal-header">
+                <h2 id="modalTitle" class="modal-title">Sign In</h2>
+                <p id="modalSubtitle" style="color: var(--gray-600);">Welcome back to Nexus</p>
+            </div>
+
+            <div id="alertContainer"></div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleAuth(event, 'login')">
+                <div class="form-group">
+                    <label class="form-label" for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" class="form-input" required>
                 </div>
-                <div style="margin-bottom: 1.5rem;">
-                    <input type="password" name="password" placeholder="Password" required class="form-input" style="width: 100%;">
+                <div class="form-group">
+                    <label class="form-label" for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" class="form-input" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
-                    <span id="authButtonText">Login</span>
-                </button>
-                <button type="button" onclick="hideAuthModal()" class="btn btn-outline" style="width: 100%;">
-                    Cancel
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
                 </button>
             </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" style="display: none;" onsubmit="handleAuth(event, 'register')">
+                <div class="form-group">
+                    <label class="form-label" for="registerName">Full Name</label>
+                    <input type="text" id="registerName" name="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" name="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" name="password" class="form-input" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" name="confirmPassword" class="form-input" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+            </form>
+
+            <div class="auth-toggle">
+                <p id="authToggleText">
+                    Don't have an account? <a href="#" onclick="toggleAuthMode()">Sign up</a>
+                </p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Project form submission
-        document.getElementById('projectForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // Authentication state
+        let currentUser = null;
+        let authToken = localStorage.getItem('nexus_token');
+
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (authToken) {
+                validateToken();
+            }
+        });
+
+        // Modal functions
+        function openModal(mode) {
+            const modal = document.getElementById('authModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalSubtitle = document.getElementById('modalSubtitle');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const authToggleText = document.getElementById('authToggleText');
+
+            clearAlerts();
+
+            if (mode === 'login') {
+                modalTitle.textContent = 'Sign In';
+                modalSubtitle.textContent = 'Welcome back to Nexus';
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                authToggleText.innerHTML = `Don't have an account? <a href="#" onclick="toggleAuthMode()">Sign up</a>`;
+            } else {
+                modalTitle.textContent = 'Create Account';
+                modalSubtitle.textContent = 'Join thousands of creators';
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                authToggleText.innerHTML = `Already have an account? <a href="#" onclick="toggleAuthMode()">Sign in</a>`;
+            }
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('authModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            clearForms();
+        }
+
+        function toggleAuthMode() {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalSubtitle = document.getElementById('modalSubtitle');
+            const authToggleText = document.getElementById('authToggleText');
+
+            clearAlerts();
+
+            if (loginForm.style.display === 'none') {
+                // Switch to login
+                modalTitle.textContent = 'Sign In';
+                modalSubtitle.textContent = 'Welcome back to Nexus';
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                authToggleText.innerHTML = `Don't have an account? <a href="#" onclick="toggleAuthMode()">Sign up</a>`;
+            } else {
+                // Switch to register
+                modalTitle.textContent = 'Create Account';
+                modalSubtitle.textContent = 'Join thousands of creators';
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                authToggleText.innerHTML = `Already have an account? <a href="#" onclick="toggleAuthMode()">Sign in</a>`;
+            }
+        }
+
+        // Authentication handlers
+        async function handleAuth(event, type) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            if (type === 'register') {
+                const password = formData.get('password');
+                const confirmPassword = formData.get('confirmPassword');
+                
+                if (password !== confirmPassword) {
+                    showAlert('Passwords do not match', 'error');
+                    return;
+                }
+            }
+
+            try {
+                const response = await fetch(`/auth/${type}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(Object.fromEntries(formData))
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    localStorage.setItem('nexus_token', data.token);
+                    authToken = data.token;
+                    currentUser = data.user;
+                    updateAuthUI();
+                    closeModal();
+                    showAlert(data.message || 'Authentication successful!', 'success');
+                } else {
+                    showAlert(data.message || 'Authentication failed', 'error');
+                }
+            } catch (error) {
+                showAlert('Network error. Please try again.', 'error');
+            }
+        }
+
+        async function validateToken() {
+            try {
+                const response = await fetch('/auth/validate', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    currentUser = data.user;
+                    updateAuthUI();
+                } else {
+                    localStorage.removeItem('nexus_token');
+                    authToken = null;
+                }
+            } catch (error) {
+                localStorage.removeItem('nexus_token');
+                authToken = null;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('nexus_token');
+            authToken = null;
+            currentUser = null;
+            updateAuthUI();
+            showAlert('Signed out successfully', 'success');
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            const userMenu = document.getElementById('userMenu');
+            const userName = document.getElementById('userName');
+
+            if (currentUser) {
+                authButtons.style.display = 'none';
+                userMenu.style.display = 'flex';
+                userName.textContent = currentUser.name || currentUser.email;
+            } else {
+                authButtons.style.display = 'flex';
+                userMenu.style.display = 'none';
+            }
+        }
+
+        // Project generation
+        async function generateProject(event) {
+            event.preventDefault();
             
-            const formData = new FormData(this);
-            const loadingState = document.getElementById('loadingState');
-            const form = document.getElementById('projectForm');
-            
-            // Show loading state
-            form.style.display = 'none';
-            loadingState.classList.add('active');
-            
+            const projectIdea = document.getElementById('projectIdea').value.trim();
+            if (!projectIdea) return;
+
+            if (!authToken) {
+                showAlert('Please sign in to generate projects', 'error');
+                openModal('login');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('projectForm').style.display = 'none';
+            document.getElementById('loadingState').style.display = 'block';
+
             try {
                 const response = await fetch('/generate', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({ project_idea: projectIdea })
                 });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    // Redirect to project view or show results
-                    if (result.project_id) {
-                        window.location.href = `/project/${result.project_id}`;
-                    } else {
-                        // For non-authenticated users, show results on same page
-                        displayProjectResults(result.report);
-                    }
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Redirect to project view
+                    window.location.href = `/project/${data.project_id}`;
                 } else {
-                    alert(result.message || result.error || 'Failed to generate project roadmap');
-                    form.style.display = 'block';
-                    loadingState.classList.remove('active');
+                    throw new Error(data.message || 'Failed to generate project');
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to generate project roadmap');
-                form.style.display = 'block';
-                loadingState.classList.remove('active');
+                document.getElementById('projectForm').style.display = 'block';
+                document.getElementById('loadingState').style.display = 'none';
+                showAlert(error.message || 'Failed to generate project. Please try again.', 'error');
             }
-        });
+        }
 
-        // Authentication modal functions
-        function showAuthModal(mode) {
+        // Utility functions
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        function clearAlerts() {
+            document.getElementById('alertContainer').innerHTML = '';
+        }
+
+        function clearForms() {
+            document.getElementById('loginForm').reset();
+            document.getElementById('registerForm').reset();
+            clearAlerts();
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
             const modal = document.getElementById('authModal');
-            const title = document.getElementById('authTitle');
-            const buttonText = document.getElementById('authButtonText');
-            const form = document.getElementById('authForm');
-            
-            if (mode === 'signup') {
-                title.textContent = 'Create Account';
-                buttonText.textContent = 'Sign Up';
-                form.action = '/auth/signup';
-            } else {
-                title.textContent = 'Login';
-                buttonText.textContent = 'Login';
-                form.action = '/auth/login';
+            if (event.target === modal) {
+                closeModal();
             }
-            
-            modal.style.display = 'flex';
-        }
-
-        function hideAuthModal() {
-            document.getElementById('authModal').style.display = 'none';
-        }
-
-        // Handle auth form submission
-        document.getElementById('authForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            
-            try {
-                const response = await fetch(this.action, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    window.location.reload();
-                } else {
-                    const text = await response.text();
-                    alert(text || 'Authentication failed');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Authentication failed');
-            }
-        });
-
-        function displayProjectResults(report) {
-            // For non-authenticated users, replace the generator with results
-            // This would be implemented based on your UI preferences
-            console.log('Project report:', report);
-            alert('Project roadmap generated! Sign up to save and view your full report.');
         }
     </script>
 </body>

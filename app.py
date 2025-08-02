@@ -7,6 +7,9 @@ from flask import Flask, render_template, request, jsonify, session, redirect, u
 from supabase import create_client, Client
 import sqlite3
 import threading
+import jwt
+import bcrypt
+from functools import wraps
 
 # Optional imports for professional APIs (graceful fallback if not installed)
 try:
@@ -428,15 +431,31 @@ def init_db():
             conn = sqlite3.connect('nexus_data.db')
             cursor = conn.cursor()
             
+            # Users table for JWT authentication
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS users (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    email TEXT UNIQUE NOT NULL,
+                    name TEXT NOT NULL,
+                    password_hash TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    is_active BOOLEAN DEFAULT TRUE,
+                    email_verified BOOLEAN DEFAULT FALSE
+                )
+            ''')
+            
             # Projects table
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS projects (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id TEXT,
+                    user_id INTEGER NOT NULL,
                     project_name TEXT NOT NULL,
+                    project_idea TEXT NOT NULL,
                     report_data TEXT NOT NULL,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (user_id) REFERENCES users (id)
                 )
             ''')
             
@@ -453,13 +472,16 @@ def init_db():
                 )
             ''')
             
-            # User preferences table
+            # User sessions table for token management
             cursor.execute('''
-                CREATE TABLE IF NOT EXISTS user_preferences (
+                CREATE TABLE IF NOT EXISTS user_sessions (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id TEXT NOT NULL,
-                    preferences TEXT NOT NULL,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    user_id INTEGER NOT NULL,
+                    token_hash TEXT NOT NULL,
+                    expires_at TIMESTAMP NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    is_revoked BOOLEAN DEFAULT FALSE,
+                    FOREIGN KEY (user_id) REFERENCES users (id)
                 )
             ''')
             
@@ -469,6 +491,163 @@ def init_db():
             
     except Exception as e:
         print(f"⚠️ Database initialization failed: {e}")
+
+# === JWT AUTHENTICATION SYSTEM ===
+
+def hash_password(password):
+    """Hash a password with bcrypt"""
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
+
+def verify_password(password, hashed):
+    """Verify a password against its hash"""
+    return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
+
+def generate_jwt_token(user_id, email):
+    """Generate a JWT token for a user"""
+    payload = {
+        'user_id': user_id,
+        'email': email,
+        'exp': datetime.utcnow() + timedelta(hours=JWT_EXPIRATION_HOURS),
+        'iat': datetime.utcnow()
+    }
+    return jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
+
+def decode_jwt_token(token):
+    """Decode and validate a JWT token"""
+    try:
+        payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
+        return payload
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.InvalidTokenError:
+        return None
+
+def create_user(email, name, password):
+    """Create a new user in the database"""
+    try:
+        with db_lock:
+            conn = sqlite3.connect('nexus_data.db')
+            cursor = conn.cursor()
+            
+            # Check if user already exists
+            cursor.execute('SELECT id FROM users WHERE email = ?', (email,))
+            if cursor.fetchone():
+                return None, "User with this email already exists"
+            
+            # Create new user
+            password_hash = hash_password(password)
+            cursor.execute('''
+                INSERT INTO users (email, name, password_hash)
+                VALUES (?, ?, ?)
+            ''', (email, name, password_hash))
+            
+            user_id = cursor.lastrowid
+            conn.commit()
+            conn.close()
+            
+            return user_id, None
+            
+    except Exception as e:
+        print(f"Error creating user: {e}")
+        return None, "Failed to create user"
+
+def authenticate_user(email, password):
+    """Authenticate a user by email and password"""
+    try:
+        with db_lock:
+            conn = sqlite3.connect('nexus_data.db')
+            cursor = conn.cursor()
+            
+            cursor.execute('''
+                SELECT id, email, name, password_hash, is_active
+                FROM users WHERE email = ?
+            ''', (email,))
+            
+            user = cursor.fetchone()
+            conn.close()
+            
+            if not user:
+                return None, "Invalid email or password"
+            
+            user_id, user_email, name, password_hash, is_active = user
+            
+            if not is_active:
+                return None, "Account is deactivated"
+            
+            if not verify_password(password, password_hash):
+                return None, "Invalid email or password"
+            
+            return {
+                'id': user_id,
+                'email': user_email,
+                'name': name
+            }, None
+            
+    except Exception as e:
+        print(f"Error authenticating user: {e}")
+        return None, "Authentication failed"
+
+def get_user_by_id(user_id):
+    """Get user information by ID"""
+    try:
+        with db_lock:
+            conn = sqlite3.connect('nexus_data.db')
+            cursor = conn.cursor()
+            
+            cursor.execute('''
+                SELECT id, email, name, is_active
+                FROM users WHERE id = ?
+            ''', (user_id,))
+            
+            user = cursor.fetchone()
+            conn.close()
+            
+            if user:
+                return {
+                    'id': user[0],
+                    'email': user[1],
+                    'name': user[2],
+                    'is_active': user[3]
+                }
+            return None
+            
+    except Exception as e:
+        print(f"Error getting user: {e}")
+        return None
+
+def require_auth(f):
+    """Decorator to require authentication for routes"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        token = None
+        
+        # Get token from Authorization header
+        if 'Authorization' in request.headers:
+            auth_header = request.headers['Authorization']
+            try:
+                token = auth_header.split(' ')[1]  # Bearer <token>
+            except IndexError:
+                return jsonify({'error': 'Invalid authorization header format'}), 401
+        
+        if not token:
+            return jsonify({'error': 'Authentication token is missing'}), 401
+        
+        # Decode token
+        payload = decode_jwt_token(token)
+        if not payload:
+            return jsonify({'error': 'Invalid or expired token'}), 401
+        
+        # Get user
+        user = get_user_by_id(payload['user_id'])
+        if not user or not user['is_active']:
+            return jsonify({'error': 'User not found or inactive'}), 401
+        
+        # Add user to request context
+        request.current_user = user
+        return f(*args, **kwargs)
+    
+    return decorated_function
 
 def save_conversation(project_id, user_message, ai_response, refinements=None):
     """Save a conversation exchange to the database"""
@@ -519,6 +698,49 @@ def get_conversation_history(project_id):
     except Exception as e:
         print(f"Error loading conversation history: {e}")
         return []
+
+def count_user_projects(user_id):
+    """Count the number of projects for a user"""
+    try:
+        with db_lock:
+            conn = sqlite3.connect('nexus_data.db')
+            cursor = conn.cursor()
+            
+            cursor.execute('SELECT COUNT(*) FROM projects WHERE user_id = ?', (user_id,))
+            count = cursor.fetchone()[0]
+            
+            conn.close()
+            return count
+            
+    except Exception as e:
+        print(f"Error counting user projects: {e}")
+        return 0
+
+def save_project_to_db(user_id, project_idea, report):
+    """Save a project to the database"""
+    try:
+        with db_lock:
+            conn = sqlite3.connect('nexus_data.db')
+            cursor = conn.cursor()
+            
+            # Extract project name from the idea (first 100 characters)
+            project_name = project_idea[:100] + "..." if len(project_idea) > 100 else project_idea
+            
+            cursor.execute('''
+                INSERT INTO projects (user_id, project_name, project_idea, report_data, created_at)
+                VALUES (?, ?, ?, ?, ?)
+            ''', (user_id, project_name, project_idea, json.dumps(report), datetime.now().isoformat()))
+            
+            project_id = cursor.lastrowid
+            conn.commit()
+            conn.close()
+            
+            print(f"✅ Project saved with ID: {project_id}")
+            return project_id
+            
+    except Exception as e:
+        print(f"Error saving project: {e}")
+        return None
 
 def update_project_report(project_id, updated_report):
     """Update project report with refined data"""
@@ -717,56 +939,53 @@ def index():
                          authenticated=is_authenticated())
 
 @app.route('/generate', methods=['POST'])
+@require_auth
 def generate_project():
     """Generate a new project roadmap"""
     try:
-        project_idea = request.form.get('project_idea', '').strip()
+        data = request.get_json()
+        if not data:
+            return jsonify({'success': False, 'message': 'No data provided'}), 400
+            
+        project_idea = data.get('project_idea', '').strip()
         
         if not project_idea:
-            return jsonify({'error': 'Project idea is required'}), 400
+            return jsonify({'success': False, 'message': 'Project idea is required'}), 400
         
-        # Check usage limits
-        usage = get_user_usage_limits()
-        if not usage['can_create']:
+        # Get authenticated user
+        user = request.current_user
+        
+        # Check if user can create more projects (basic freemium logic)
+        user_projects_count = count_user_projects(user['id'])
+        max_projects = 3  # Free tier limit
+        
+        if user_projects_count >= max_projects:
             return jsonify({
-                'error': 'Usage limit reached',
-                'message': f"You've reached your limit of {usage['max_projects']} projects. Please upgrade or delete existing projects."
+                'success': False,
+                'message': f"You've reached your limit of {max_projects} projects. Please delete existing projects to create new ones."
             }), 403
         
         # Generate the complete report
         report = generate_complete_project_report(project_idea)
         
         if not report:
-            return jsonify({'error': 'Failed to generate project report'}), 500
+            return jsonify({'success': False, 'message': 'Failed to generate project report'}), 500
         
-        # Save to database if user is authenticated
-        project_id = None
-        if is_authenticated() and supabase:
-            try:
-                user = get_current_user()
-                result = supabase.table('projects').insert({
-                    'user_id': user['id'],
-                    'project_name': project_idea,
-                    'report_data': report,
-                    'created_at': datetime.now().isoformat()
-                }).execute()
-                
-                if result.data:
-                    project_id = result.data[0]['id']
-                    print(f"✅ Project saved with ID: {project_id}")
-                    
-            except Exception as e:
-                print(f"⚠️ Failed to save project: {e}")
+        # Save to database
+        project_id = save_project_to_db(user['id'], project_idea, report)
+        
+        if not project_id:
+            return jsonify({'success': False, 'message': 'Failed to save project'}), 500
         
         return jsonify({
             'success': True,
             'project_id': project_id,
-            'report': report
+            'message': 'Project roadmap generated successfully!'
         })
         
     except Exception as e:
         print(f"Error in generate_project: {e}")
-        return jsonify({'error': 'Internal server error'}), 500
+        return jsonify({'success': False, 'message': 'Internal server error'}), 500
 
 @app.route('/dashboard')
 def dashboard():
@@ -817,60 +1036,135 @@ def view_project(project_id):
     
     return "Database not available", 500
 
+@app.route('/auth/register', methods=['POST'])
+def register():
+    """Register a new user"""
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'success': False, 'message': 'No data provided'}), 400
+        
+        email = data.get('email', '').strip().lower()
+        name = data.get('name', '').strip()
+        password = data.get('password', '')
+        
+        # Validation
+        if not email or not name or not password:
+            return jsonify({'success': False, 'message': 'All fields are required'}), 400
+        
+        if len(password) < 6:
+            return jsonify({'success': False, 'message': 'Password must be at least 6 characters'}), 400
+        
+        # Email format validation
+        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_regex, email):
+            return jsonify({'success': False, 'message': 'Invalid email format'}), 400
+        
+        # Create user
+        user_id, error = create_user(email, name, password)
+        
+        if error:
+            return jsonify({'success': False, 'message': error}), 400
+        
+        # Generate JWT token
+        token = generate_jwt_token(user_id, email)
+        
+        return jsonify({
+            'success': True,
+            'message': 'Account created successfully!',
+            'token': token,
+            'user': {
+                'id': user_id,
+                'email': email,
+                'name': name
+            }
+        })
+        
+    except Exception as e:
+        print(f"Registration error: {e}")
+        return jsonify({'success': False, 'message': 'Registration failed'}), 500
+
 @app.route('/auth/login', methods=['POST'])
 def login():
-    """Handle user authentication"""
+    """Authenticate user and return JWT token"""
     try:
-        email = request.form.get('email')
-        password = request.form.get('password')
+        data = request.get_json()
         
-        if supabase:
-            result = supabase.auth.sign_in_with_password({
-                "email": email,
-                "password": password
-            })
-            
-            if result.user:
-                session['user'] = {
-                    'id': result.user.id,
-                    'email': result.user.email,
-                    'plan': 'free'  # Default plan
-                }
-                return redirect(url_for('dashboard'))
+        if not data:
+            return jsonify({'success': False, 'message': 'No data provided'}), 400
         
-        return "Authentication failed", 401
+        email = data.get('email', '').strip().lower()
+        password = data.get('password', '')
+        
+        if not email or not password:
+            return jsonify({'success': False, 'message': 'Email and password are required'}), 400
+        
+        # Authenticate user
+        user, error = authenticate_user(email, password)
+        
+        if error:
+            return jsonify({'success': False, 'message': error}), 401
+        
+        # Generate JWT token
+        token = generate_jwt_token(user['id'], user['email'])
+        
+        return jsonify({
+            'success': True,
+            'message': 'Login successful!',
+            'token': token,
+            'user': user
+        })
         
     except Exception as e:
         print(f"Login error: {e}")
-        return "Login failed", 500
+        return jsonify({'success': False, 'message': 'Login failed'}), 500
 
-@app.route('/auth/signup', methods=['POST'])
-def signup():
-    """Handle user registration"""
+@app.route('/auth/validate', methods=['GET'])
+def validate_token():
+    """Validate JWT token and return user info"""
     try:
-        email = request.form.get('email')
-        password = request.form.get('password')
+        token = None
         
-        if supabase:
-            result = supabase.auth.sign_up({
-                "email": email,
-                "password": password
-            })
-            
-            if result.user:
-                return "Registration successful! Please check your email to verify your account."
+        if 'Authorization' in request.headers:
+            auth_header = request.headers['Authorization']
+            try:
+                token = auth_header.split(' ')[1]  # Bearer <token>
+            except IndexError:
+                return jsonify({'success': False, 'message': 'Invalid authorization header'}), 401
         
-        return "Registration failed", 400
+        if not token:
+            return jsonify({'success': False, 'message': 'Token missing'}), 401
+        
+        # Decode token
+        payload = decode_jwt_token(token)
+        if not payload:
+            return jsonify({'success': False, 'message': 'Invalid or expired token'}), 401
+        
+        # Get user
+        user = get_user_by_id(payload['user_id'])
+        if not user or not user['is_active']:
+            return jsonify({'success': False, 'message': 'User not found or inactive'}), 401
+        
+        return jsonify({
+            'success': True,
+            'user': user
+        })
         
     except Exception as e:
-        print(f"Signup error: {e}")
-        return "Registration failed", 500
+        print(f"Token validation error: {e}")
+        return jsonify({'success': False, 'message': 'Token validation failed'}), 500
 
-@app.route('/auth/logout')
+@app.route('/auth/logout', methods=['POST'])
 def logout():
     """Handle user logout"""
-    session.clear()
-    return redirect(url_for('index'))
+    # For JWT, logout is handled client-side by removing the token
+    # Server-side, we could add the token to a blacklist, but for simplicity
+    # we'll just return success
+    return jsonify({
+        'success': True,
+        'message': 'Logged out successfully'
+    })
 
 # === NEW ROUTES FOR CHAT INTERACTION ===
 
