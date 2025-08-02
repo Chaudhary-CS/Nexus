@@ -1,4 +1,5 @@
-import type { Metadata } from 'next'
+import React from 'react'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
@@ -12,7 +13,11 @@ export const metadata: Metadata = {
   description: 'Transform your ideas into reality with comprehensive roadmaps, competitive analysis, and learning resources powered by AI.',
   keywords: ['AI', 'project planning', 'startup', 'roadmap', 'competitive analysis'],
   authors: [{ name: 'Nexus Team' }],
-  viewport: 'width=device-width, initial-scale=1',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: '#8b5cf6',
 }
 
