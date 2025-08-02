@@ -1,0 +1,31 @@
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
+
+export const metadata: Metadata = {
+  title: 'Nexus - AI-Powered Project Intelligence',
+  description: 'Transform your ideas into reality with comprehensive roadmaps, competitive analysis, and learning resources powered by AI.',
+  keywords: ['AI', 'project planning', 'startup', 'roadmap', 'competitive analysis'],
+  authors: [{ name: 'Nexus Team' }],
+  viewport: 'width=device-width, initial-scale=1',
+  themeColor: '#8b5cf6',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" className={inter.variable}>
+      <body className={inter.className}>
+        {children}
+      </body>
+    </html>
+  )
+} 

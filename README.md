@@ -1,207 +1,196 @@
-# 🚀 Nexus MVP - AI-Powered Project Roadmap Generator
+# Nexus Design System
 
-**Transform any app idea into a comprehensive strategic plan with interactive AI refinement.**
+A modern, dark-themed React + TypeScript + Tailwind CSS design system for AI-powered project planning platform.
 
-Nexus is a business-ready application that empowers anyone with an idea—from students to founders—to build the next great thing by providing detailed project roadmaps, market analysis, and personalized learning paths.
+## 🎨 Design Tokens
 
-## ✨ Key Features
+### Color Palette (HSL)
+```css
+/* Brand Colors */
+--nexus-purple: hsl(263, 70%, 50%)   /* Main brand color */
+--nexus-blue: hsl(217, 91%, 60%)     /* Accent blue */
+--nexus-green: hsl(152, 76%, 50%)    /* Success/highlights */
 
-### 🎯 **Core Capabilities**
-- **Visual Project Roadmap**: Timeline-based project phases with clear deliverables
-- **Nexus Intelligence**: Deep market analysis with opportunity assessment
-- **MVP Feature Blueprint**: Prioritized feature recommendations
-- **Technology Stack Recommendations**: Modern, justified tech choices
-- **Curated Learning Hub**: Personalized curriculum with learning resources
+/* Background System */
+--dark-bg: hsl(240, 10%, 3.9%)       /* Main background */
+--surface: hsl(240, 6%, 10%)         /* Card backgrounds */
+--surface-elevated: hsl(240, 5%, 15%) /* Elevated cards */
 
-### 💬 **Interactive Refinement** (NEW!)
-- **AI-Powered Chat**: Continuous conversation to refine your roadmap
-- **Context-Aware Responses**: AI understands your existing project
-- **Real-Time Updates**: Live modifications to roadmap based on chat
-- **Conversation History**: Track how your project evolved
-
-### 🔐 **Business-Ready Platform**
-- **Secure Authentication**: Email/Google login via Supabase
-- **Project Management**: Save and manage multiple roadmaps
-- **Personal Dashboard**: View all your projects in one place
-- **Freemium Model**: Usage limits with upgrade potential
-
-## 🛠️ Technology Stack
-
-- **Backend**: Flask (Python)
-- **Database**: SQLite (local) + Supabase (cloud)
-- **Authentication**: Supabase Auth
-- **Frontend**: Jinja2 templates + vanilla JavaScript
-- **APIs**: Brave Search, Google Gemini AI, Reddit, GitHub
-- **Deployment**: Ready for Vercel/Heroku
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Python 3.9+
-- pip3
-
-### 1. Clone & Setup
-```bash
-git clone <your-repo-url>
-cd nexus-mvp
-pip3 install -r requirements.txt
+/* Text System */
+--text-primary: hsl(0, 0%, 98%)      /* Primary text */
+--text-muted: hsl(240, 5%, 64.9%)    /* Secondary text */
 ```
 
-### 2. Environment Configuration
-Create a `.env` file in the project root:
-```env
-# === API KEYS ===
-BRAVE_API_KEY=your_brave_api_key_here
-GEMINI_API_KEY=your_gemini_api_key_here
-REDDIT_CLIENT_ID=your_reddit_client_id
-REDDIT_CLIENT_SECRET=your_reddit_client_secret
-REDDIT_USER_AGENT=your_reddit_user_agent
-GITHUB_TOKEN=your_github_token_here
-GOOGLE_CSE_API_KEY=your_google_cse_api_key
-GOOGLE_CSE_ID=your_google_cse_id
-STABILITY_API_KEY=your_stability_api_key
-SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_anon_key
+### Gradients
+- **Primary Gradient**: `linear-gradient(135deg, purple → blue)`
+- **Surface Gradient**: `linear-gradient(180deg, dark bg → surface)`
+- **Glow Effect**: `radial-gradient(circle, purple transparency)`
+
+## 🧩 Components
+
+### Button Variants
+```tsx
+<Button variant="nexus">Primary Action</Button>
+<Button variant="nexus-outline">Secondary Action</Button>
+<Button variant="nexus-ghost">Subtle Action</Button>
 ```
 
-### 3. Run the Application
-```bash
-python3 app.py
+### Card Variants
+```tsx
+<Card variant="default">Standard card</Card>
+<Card variant="elevated">Elevated with shadow</Card>
+<Card variant="glass" glow>Glassmorphism with glow</Card>
 ```
 
-Visit `http://localhost:5001` to start generating roadmaps!
+## 🎭 Animations
 
-## 📚 API Setup Guide
+### Keyframes
+- **fade-in**: translateY + opacity transition
+- **float**: Gentle Y-axis oscillation
+- **glow**: Pulsing shadow effect
+- **scale-in**: Scale + opacity entrance
 
-Nexus works with demo data out of the box, but for full functionality, set up these free APIs:
-
-### 🔍 **Brave Search API** (Web Search)
-1. Visit [Brave Search API](https://brave.com/search/api/)
-2. Sign up for free account (2,000 queries/month)
-3. Get API key → Add to `BRAVE_API_KEY`
-
-### 🤖 **Google AI Studio** (Gemini)
-1. Go to [Google AI Studio](https://aistudio.google.com/)
-2. Create free account (generous limits)
-3. Generate API key → Add to `GEMINI_API_KEY`
-
-### 💬 **Reddit API** (User Sentiment)
-1. Visit [Reddit Apps](https://www.reddit.com/prefs/apps)
-2. Create "script" application
-3. Get client ID & secret → Add to `REDDIT_CLIENT_ID` & `REDDIT_CLIENT_SECRET`
-
-### 🐙 **GitHub API** (Tech Trends)
-1. Go to [GitHub Settings](https://github.com/settings/tokens)
-2. Generate personal access token
-3. Add to `GITHUB_TOKEN`
-
-### 🔍 **Google Custom Search** (Market Analysis)
-1. Visit [Google Custom Search](https://cse.google.com/)
-2. Create search engine for tech sites (TechCrunch, VentureBeat, etc.)
-3. Get API key & Engine ID → Add to `GOOGLE_CSE_API_KEY` & `GOOGLE_CSE_ID`
-
-### 🛡️ **Supabase** (Authentication & Database)
-1. Create project at [Supabase](https://supabase.com/)
-2. Get URL & anon key → Add to `SUPABASE_URL` & `SUPABASE_KEY`
-
-## 💡 Usage Examples
-
-### Basic Project Generation
-1. Visit the homepage
-2. Enter your project idea: "Food delivery app for college students"
-3. Click "Generate Roadmap"
-4. Get comprehensive analysis and roadmap
-
-### Interactive Refinement
-1. Open any generated project
-2. Click "Show Chat" to expand refinement interface
-3. Ask questions like:
-   - "How can I reduce the budget for this project?"
-   - "Can you make the timeline faster?"
-   - "What features should I prioritize first?"
-   - "Are there better technology options?"
-
-### Refinement Categories
-- **💰 Budget Optimization**: Get cost-effective alternatives
-- **⚡ Timeline Acceleration**: Faster development strategies  
-- **🎯 Feature Prioritization**: Focus on core MVP features
-- **🔧 Technology Changes**: Explore different tech stacks
-- **📊 Market Deep-Dive**: Enhanced competitive analysis
-- **📚 Learning Customization**: Personalized skill development
+### Usage
+```tsx
+<div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+  Content appears with stagger
+</div>
+```
 
 ## 📁 Project Structure
 
 ```
-nexus-mvp/
-├── app.py                 # Main Flask application
-├── requirements.txt       # Python dependencies
-├── .env                  # Environment variables (create this)
-├── .gitignore           # Git ignore rules
-├── README.md            # This file
-├── nexus_data.db        # SQLite database (auto-created)
-├── templates/           # HTML templates
-│   ├── index.html       # Landing page & generator
-│   ├── project.html     # Project report view
-│   └── dashboard.html   # User dashboard
-└── API_SETUP_GUIDE.md   # Detailed API setup instructions
+src/
+├── app/
+│   ├── layout.tsx          # Root layout
+│   ├── page.tsx           # Homepage
+│   └── globals.css        # Global styles
+├── components/
+│   ├── ui/
+│   │   ├── Button.tsx     # Button component
+│   │   └── Card.tsx       # Card components
+│   ├── Header.tsx         # Navigation header
+│   ├── Hero.tsx           # Hero section
+│   └── Features.tsx       # Features grid
+└── lib/
+    └── utils.ts           # Utility functions
 ```
 
-## 🌟 Demo Mode
+## 🚀 Getting Started
 
-Nexus includes a comprehensive demo mode with realistic mock data:
-- **Professional search results** with built-in intelligence
-- **Market analysis** with competitor insights
-- **Technology recommendations** with modern stacks
-- **Learning paths** with curated resources
-
-Perfect for testing and demonstrations without API setup!
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
+### Installation
 ```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel --prod
+npm install react react-dom next typescript tailwindcss
+npm install autoprefixer postcss clsx tailwind-merge
+npm install lucide-react framer-motion
+npm install @tailwindcss/forms @tailwindcss/typography
 ```
 
-### Heroku
+### Development
 ```bash
-# Create Procfile
-echo "web: python app.py" > Procfile
-
-# Deploy
-git push heroku main
+npm run dev    # Start development server
+npm run build  # Build for production
+npm run lint   # Run ESLint
 ```
 
-## 🤝 Contributing
+## 🎯 Key Features
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+### Glassmorphism Effects
+- Backdrop blur on cards and overlays
+- Subtle transparency layers
+- Smooth hover transitions
+
+### Responsive Design
+- Mobile-first approach
+- Container max-widths
+- Flexible grid systems
+
+### Dark Theme Optimized
+- High contrast ratios
+- Subtle glow effects
+- Premium visual hierarchy
+
+### Performance
+- Optimized animations
+- Lazy loading ready
+- Tree-shakeable components
+
+## 🎨 Design Principles
+
+### Visual Hierarchy
+- Large, bold headings (4xl-8xl)
+- Gradient text on key phrases
+- Consistent spacing system
+
+### Interaction Design
+- Hover scale transforms
+- Glow effects on focus states
+- Smooth cubic-bezier transitions
+
+### Accessibility
+- High contrast colors
+- Focus ring indicators
+- Semantic HTML structure
+
+## 🔧 Customization
+
+### Extending Colors
+```js
+// tailwind.config.js
+theme: {
+  extend: {
+    colors: {
+      'custom-purple': 'hsl(280, 70%, 50%)',
+    }
+  }
+}
+```
+
+### Custom Animations
+```js
+// tailwind.config.js
+animation: {
+  'custom-bounce': 'bounce 1s infinite',
+}
+```
+
+## 📱 Responsive Breakpoints
+
+```css
+sm: 640px   /* Small devices */
+md: 768px   /* Medium devices */
+lg: 1024px  /* Large devices */
+xl: 1280px  /* Extra large devices */
+```
+
+## 🎪 Component Examples
+
+### Hero Section
+- Animated background elements
+- Gradient text effects
+- Interactive project input card
+- Floating animation elements
+
+### Features Grid
+- 3-column responsive layout
+- Staggered entrance animations
+- Hover scale effects
+- Color-coded feature categories
+
+### Header
+- Sticky navigation
+- Glassmorphism background
+- Mobile menu with backdrop blur
+- Animated logo with glow effects
+
+## 🌟 Best Practices
+
+1. **Use semantic HTML** for accessibility
+2. **Implement proper focus states** for keyboard navigation
+3. **Optimize animations** for reduced motion preferences
+4. **Test dark theme** across all components
+5. **Maintain consistent spacing** using Tailwind's scale
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙋‍♂️ Support
-
-- **Issues**: [GitHub Issues](https://github.com/yourusername/nexus-mvp/issues)
-- **Documentation**: Check `API_SETUP_GUIDE.md` for detailed setup
-- **Demo**: Works out of the box with mock data
-
-## 🎯 Roadmap
-
-- [ ] **Mermaid.js Integration**: Visual diagrams in roadmaps
-- [ ] **Team Collaboration**: Multi-user project editing
-- [ ] **Export Features**: PDF/Word export of roadmaps
-- [ ] **Advanced Analytics**: Project success tracking
-- [ ] **Mobile App**: React Native companion app
-
----
-
-**Built with ❤️ for creators and innovators worldwide** 
+This design system is part of the Nexus project. All rights reserved. 
