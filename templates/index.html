@@ -14,25 +14,26 @@
         }
 
         :root {
-            /* Premium Dark Theme */
+            /* Black & Gold Luxury Theme */
             --primary-blue: #2563eb;
             --secondary-blue: #1e40af;
             --accent-purple: #7c3aed;
-            --accent-orange: #f59e0b;
-            --dark-bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-light: #f8fafc;
-            --text-gray: #94a3b8;
+            --luxury-gold: #d4af37;
+            --bright-gold: #ffd700;
+            --dark-bg: #000000;
+            --card-bg: #0a0a0a;
+            --text-light: #ffffff;
+            --text-gray: #d4af37;
             --success-green: #10b981;
-            --border-color: rgba(148, 163, 184, 0.2);
-            --glass-bg: rgba(30, 41, 59, 0.8);
-            --premium-gold: #fbbf24;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --glass-bg: rgba(10, 10, 10, 0.9);
+            --premium-gold: #d4af37;
             --premium-silver: #e5e7eb;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            background: #000000;
             color: var(--text-light);
             min-height: 100vh;
             line-height: 1.6;
@@ -41,7 +42,7 @@
 
         /* Premium Navigation */
         .navbar {
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             padding: 1rem 0;
@@ -63,7 +64,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple), var(--luxury-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -74,7 +75,7 @@
         }
 
         .logo i {
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple), var(--luxury-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -114,14 +115,14 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple), var(--luxury-gold));
             color: white;
             border: none;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
         }
 
         /* Hero Section */
@@ -189,7 +190,7 @@
             padding: 1rem 1.5rem;
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            background: rgba(15, 23, 42, 0.5);
+            background: rgba(0, 0, 0, 0.5);
             color: var(--text-light);
             font-size: 1rem;
             transition: all 0.3s ease;
@@ -270,7 +271,7 @@
         .modal-logo {
             font-size: 2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple), var(--luxury-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -293,7 +294,7 @@
             position: absolute;
             top: -1rem;
             right: -1rem;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(0, 0, 0, 0.8);
             border: 1px solid var(--border-color);
             border-radius: 50%;
             width: 40px;
@@ -330,8 +331,8 @@
         }
 
         .auth-form .form-input {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border-color);
             color: var(--text-light);
             border-radius: 12px;
             padding: 0.75rem 1rem;
@@ -339,13 +340,13 @@
         }
 
         .auth-form .form-input:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-            background: rgba(15, 23, 42, 0.8);
+            border-color: var(--luxury-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            background: rgba(0, 0, 0, 0.8);
         }
 
         .auth-btn {
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple), var(--luxury-gold));
             color: white;
             padding: 1rem 2rem;
             border: none;
